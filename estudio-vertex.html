@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Estudio Vertex | Consultoría de Productividad y Bienestar para Equipos Remotos</title>
+<meta name="description" content="Estudio Vertex ayuda a gerentes y líderes de equipos remotos a multiplicar su productividad y bienestar con una metodología propia basada en neurociencia, probada en más de 50 empresas." />
+<meta property="og:title" content="Estudio Vertex | Consultoría de Productividad y Bienestar para Equipos Remotos" />
+<meta property="og:description" content="Estudio Vertex ayuda a gerentes y líderes de equipos remotos a multiplicar su productividad y bienestar con una metodología propia basada en neurociencia, probada en más de 50 empresas." />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --color-primario:#00C9A7;
+  --color-secundario:#1A2744;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:var(--color-secundario);line-height:1.6;background:#FAFAF8;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Playfair Display',serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 32px;border-radius:100px;font-weight:700;cursor:pointer;border:none;transition:all .25s;font-family:inherit;font-size:.95rem}
+.btn-dark{background:var(--color-secundario);color:#fff}
+.btn-dark:hover{filter:brightness(.8);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--color-secundario);border:2px solid var(--color-secundario)}
+
+nav{padding:24px 0;position:sticky;top:0;background:rgba(250,250,248,.95);backdrop-filter:blur(10px);z-index:100;border-bottom:1px solid rgba(0,0,0,.05)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+nav ul{display:flex;gap:32px;list-style:none}
+nav ul a{font-size:.92rem;color:#5a5a5a}
+nav ul a:hover{color:var(--color-secundario)}
+@media(max-width:700px){nav ul{display:none}}
+
+.hero{padding:80px 0 100px;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}}
+.hero h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;margin-bottom:24px;letter-spacing:-.04em}
+.hero p{font-size:1.15rem;color:#5a5a5a;margin-bottom:32px;max-width:480px}
+@media(max-width:900px){.hero p{margin-left:auto;margin-right:auto}}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero-ctas{justify-content:center}}
+.hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,var(--color-primario) 0%,var(--color-secundario) 100%);border-radius:280px 280px 24px 24px;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.2)}
+.hero-img-fig{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:14rem;line-height:1;opacity:.85}
+
+.stats{padding:60px 0;background:var(--color-secundario);color:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--color-primario)}
+.stat-lbl{font-size:.88rem;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+
+section{padding:100px 0}
+h2{font-size:clamp(2rem,4vw,3rem);font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px}
+.subtitle{font-size:1.1rem;color:#5a5a5a;max-width:600px;margin:0 auto 60px;text-align:center}
+.section-head{text-align:center}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr}}
+.service{background:#fff;padding:36px 28px;border-radius:24px;border:1px solid rgba(0,0,0,.05);transition:all .3s}
+.service:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+.service-icon{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--color-primario) 0%,var(--color-secundario) 100%);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:20px}
+.service h3{font-size:1.25rem;margin-bottom:10px;font-weight:700}
+.service p{color:#5a5a5a;font-size:.95rem}
+
+.about{background:#fff;padding:100px 0}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-img{aspect-ratio:4/5;background:linear-gradient(135deg,var(--color-primario) 0%,var(--color-secundario) 100%);border-radius:24px;display:flex;align-items:flex-end;justify-content:center;font-size:10rem;line-height:1;opacity:.9}
+.about h2{margin-bottom:24px}
+.about p{color:#5a5a5a;margin-bottom:18px;font-size:1.05rem}
+blockquote{border-left:4px solid var(--color-primario);padding-left:20px;font-style:italic;color:var(--color-secundario);margin:24px 0;font-size:1.1rem}
+
+.testimonials{background:#FAFAF8}
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:980px;margin:0 auto}
+@media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+.test{background:#fff;padding:32px;border-radius:20px;border:1px solid rgba(0,0,0,.05)}
+.test-stars{color:var(--color-primario);font-size:1rem;margin-bottom:14px}
+.test-quote{font-size:1.05rem;color:var(--color-secundario);margin-bottom:20px;line-height:1.7}
+.test-author{display:flex;align-items:center;gap:14px}
+.test-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--color-primario) 0%,var(--color-secundario) 100%);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+
+.cta-final{background:var(--color-secundario);color:#fff;padding:100px 0;text-align:center}
+.cta-final h2{color:#fff;margin-bottom:18px}
+.cta-final p{color:rgba(255,255,255,.75);margin-bottom:32px;font-size:1.15rem}
+.cta-final .btn{background:var(--color-primario);color:#fff;font-weight:800}
+.cta-final .btn:hover{filter:brightness(1.1)}
+
+footer{padding:40px 0;text-align:center;background:var(--color-secundario);color:rgba(255,255,255,.5);font-size:.88rem}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo serif">Estudio Vertex</div>
+    <ul>
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#testimonios">Historias</a></li>
+      <li><a href="#contacto" class="btn btn-dark" style="padding:10px 22px">Agenda una sesión</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div>
+    <span style="font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-primario)">Consultoría para equipos remotos · Medellín</span>
+    <h1 class="serif" style="margin-top:14px">Equipos remotos que rinden más y se agotan menos</h1>
+    <p>Ayudamos a gerentes y líderes a transformar sus equipos de 5 a 20 personas con una metodología basada en neurociencia, probada en más de 50 empresas durante 16 años.</p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn btn-dark">Agenda una sesión →</a>
+      <a href="#sobre" class="btn btn-outline">Conoce más</a>
+    </div>
+  </div>
+  <div class="hero-img"><div class="hero-img-fig">🧠</div></div>
+</header>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div><div class="stat-num">50+</div><div class="stat-lbl">Empresas transformadas</div></div>
+    <div><div class="stat-num">16</div><div class="stat-lbl">Años de experiencia</div></div>
+    <div><div class="stat-num">98%</div><div class="stat-lbl">Satisfacción de clientes</div></div>
+    <div><div class="stat-num">3x</div><div class="stat-lbl">Mejora en productividad</div></div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="serif">Cómo te acompaño</h2>
+      <p class="subtitle">Servicios diseñados para diferentes momentos de tu camino.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-icon">🧠</div>
+        <h3>Consultoría 1:1</h3>
+        <p>Sesiones personalizadas para líderes que necesitan claridad, estrategia y herramientas concretas para gestionar equipos remotos con foco y sin agotamiento. Avanzamos a tu ritmo, con resultados medibles desde la primera sesión.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🚀</div>
+        <h3>Workshops para equipos</h3>
+        <p>Talleres prácticos e inmersivos diseñados para que todo tu equipo adopte hábitos de alto rendimiento y bienestar real. Metodología basada en neurociencia aplicada, dinámica y adaptada a la cultura de tu organización.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔍</div>
+        <h3>Auditoría de procesos</h3>
+        <p>Analizamos en profundidad cómo trabaja tu equipo remoto, identificamos los cuellos de botella que roban energía y productividad, y entregamos un plan de acción claro y prioritizado para optimizar cada flujo de trabajo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="about">
+  <div class="container about-grid">
+    <div class="about-img">🚀</div>
+    <div>
+      <span style="font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--color-primario)">Sobre mí</span>
+      <h2 class="serif" style="margin-top:14px">16 años convirtiendo equipos agotados en equipos imparables</h2>
+      <p>En Estudio Vertex hemos acompañado a más de 50 empresas en toda la región a rediseñar la forma en que sus equipos remotos trabajan, colaboran y se cuidan. No ofrecemos fórmulas genéricas: cada intervención parte de un diagnóstico real y se sostiene en evidencia científica.</p>
+      <p>Nuestra metodología propia integra neurociencia aplicada, gestión ágil y bienestar organizacional para lograr que tu equipo no solo produzca más, sino que quiera quedarse y dar lo mejor de sí cada día.</p>
+      <blockquote class="serif">"Un equipo remoto bien gestionado no necesita más horas. Necesita mejores condiciones para pensar, decidir y descansar."</blockquote>
+      <a href="#contacto" class="btn btn-dark">Agenda una sesión →</a>
+    </div>
+  </div>
+</section>
+
+<section id="testimonios" class="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="serif">Historias que inspiran</h2>
+      <p class="subtitle">Personas que confiaron y hoy viven con más propósito.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Llegamos a Estudio Vertex con un equipo de 12 personas completamente desgastado y con indicadores de productividad en caída libre. En tres meses, no solo recuperamos el ritmo, sino que superamos las metas del trimestre. La metodología de Vertex es diferente a todo lo que habíamos probado antes."</p>
+        <div class="test-author">
+          <div class="test-avatar">CR</div>
+          <div><strong>Camila Restrepo — Directora de Operaciones, Fintech Medellín</strong></div>
+        </div>
+      </div>
+      <div class="test">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"La auditoría de procesos que hicieron con nosotros fue reveladora. Descubrimos reuniones innecesarias, tareas duplicadas y una carga cognitiva enorme que nadie había nombrado. Con el plan de acción de Vertex, redujimos el tiempo de reuniones en un 40% y el equipo reporta mucho mayor bienestar. Absolutamente recomendado."</p>
+        <div class="test-author">
+          <div class="test-avatar">JM</div>
+          <div><strong>Jorge Morales — CEO, Agencia Digital Remota</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="serif">¿Listo para transformar tu equipo remoto?</h2>
+    <p>Agenda una sesión exploratoria sin costo. En 30 minutos identificamos los principales frenos de tu equipo y te mostramos cómo podemos ayudarte.</p>
+    <a href="https://wa.me/18495854104" class="btn">Agenda una sesión →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Estudio Vertex · Medellín, Colombia · jonassotoperez@gmail.com · Hecho con Bravva
+  </div>
+</footer>
+
+<a href="https://wa.me/18495854104" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>
