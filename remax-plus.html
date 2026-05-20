@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RE/MAX Plus — Inversiones Inmobiliarias en Punta Cana</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#0F1F2E;line-height:1.6;background:#fff;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Lora',serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:6px;font-weight:600;cursor:pointer;border:none;font-family:inherit;font-size:.95rem;transition:all .25s}
+.btn-primary{background:#C0151A;color:#fff}
+.btn-primary:hover{background:#9e1115;transform:translateY(-2px)}
+.btn-accent{background:#C0151A;color:#fff}
+.btn-accent:hover{background:#9e1115}
+.btn-outline{background:transparent;color:#0F1F2E;border:1.5px solid #0F1F2E}
+
+nav{padding:20px 0;border-bottom:1px solid #E5E7EB;background:#fff;position:sticky;top:0;z-index:100}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Lora',serif;font-size:1.6rem;font-weight:700}
+.logo-mark{width:36px;height:36px;background:#C0151A;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem}
+nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+nav ul a{font-size:.92rem;color:#0F1F2E;font-weight:500}
+@media(max-width:800px){nav ul li:not(:last-child){display:none}}
+
+.hero{padding:60px 0 0;background:linear-gradient(180deg,#EEF3FA 0%,#fff 100%)}
+.hero-content{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;padding-bottom:80px}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr}}
+.hero-eyebrow{color:#C0151A;font-weight:600;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2.8rem,6vw,4.5rem);line-height:1.05;margin-bottom:22px;letter-spacing:-.02em;font-weight:700}
+.hero h1 em{font-style:italic;color:#C0151A;font-weight:600}
+.hero p{font-size:1.15rem;color:#5A6470;margin-bottom:32px;max-width:520px}
+.search-box{background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:20px;display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:12px;margin-bottom:24px;border:1px solid #E5E7EB}
+@media(max-width:700px){.search-box{grid-template-columns:1fr}}
+.search-field{padding:10px 14px;border:1px solid #E5E7EB;border-radius:8px;font-family:inherit;font-size:.92rem;background:#EEF3FA}
+.hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,#1B3A6B 0%,#0D2347 100%);border-radius:16px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;font-size:8rem;color:rgba(192,21,26,.4)}
+
+.stats{background:#1B3A6B;color:#fff;padding:40px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-num{font-family:'Lora',serif;font-size:2.4rem;font-weight:700;color:#C0151A;line-height:1}
+.stat-lbl{font-size:.85rem;color:rgba(255,255,255,.7);margin-top:6px;letter-spacing:.05em;text-transform:uppercase}
+
+section{padding:90px 0}
+h2{font-family:'Lora',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:18px;letter-spacing:-.02em}
+.section-head{text-align:center;max-width:680px;margin:0 auto 60px}
+.section-eyebrow{color:#C0151A;font-weight:600;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:inline-block}
+.section-head .subtitle{color:#5A6470;font-size:1.05rem}
+
+.properties{background:#EEF3FA}
+.props-filters{display:flex;gap:10px;justify-content:center;margin-bottom:40px;flex-wrap:wrap}
+.filter-btn{padding:8px 18px;border:1.5px solid #E5E7EB;background:#fff;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn.active{background:#1B3A6B;color:#fff;border-color:#1B3A6B}
+.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.props-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.props-grid{grid-template-columns:1fr}}
+.prop-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.06);transition:all .3s;cursor:pointer}
+.prop-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.prop-img{aspect-ratio:4/3;background:linear-gradient(135deg,#1B3A6B 0%,#0D2347 100%);position:relative;display:flex;align-items:center;justify-content:center;font-size:4rem;color:rgba(255,255,255,.5)}
+.prop-tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.95);padding:5px 12px;border-radius:100px;font-size:.75rem;font-weight:700;color:#0F1F2E}
+.prop-fav{position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.prop-info{padding:20px}
+.prop-price{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:#1B3A6B;line-height:1;margin-bottom:6px}
+.prop-title{font-size:1rem;font-weight:600;margin-bottom:8px}
+.prop-loc{color:#5A6470;font-size:.88rem;margin-bottom:14px}
+.prop-features{display:flex;gap:16px;padding-top:14px;border-top:1px solid #E5E7EB;color:#5A6470;font-size:.85rem}
+.prop-features span::before{content:"";margin-right:6px}
+
+.services{background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr}}
+.service{padding:36px 24px;text-align:center;border-radius:12px;border:1px solid #E5E7EB;transition:all .3s}
+.service:hover{border-color:#C0151A;background:#EEF3FA}
+.service-icon{width:60px;height:60px;background:#EEF3FA;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 18px;color:#C0151A}
+.service h3{font-family:'Lora',serif;font-size:1.4rem;font-weight:700;margin-bottom:10px}
+.service p{color:#5A6470;font-size:.95rem}
+
+.about{background:#1B3A6B;color:#fff;padding:120px 0}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-img{aspect-ratio:4/5;background:linear-gradient(135deg,#C0151A 0%,#9e1115 100%);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(255,255,255,.4)}
+.about h2{color:#fff;margin-bottom:20px}
+.about p{color:rgba(255,255,255,.78);margin-bottom:18px;font-size:1.05rem}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,.1)}
+.about-stat strong{color:#C0151A;font-family:'Lora',serif;font-size:1.8rem;font-weight:700;display:block}
+.about-stat span{font-size:.8rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em}
+
+.testimonios{background:#EEF3FA}
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:980px;margin:0 auto}
+@media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+.test-card{background:#fff;padding:32px;border-radius:14px;border:1px solid #E5E7EB}
+.test-stars{color:#C0151A;font-size:1rem;margin-bottom:14px}
+.test-quote{color:#0F1F2E;font-size:1rem;margin-bottom:20px;line-height:1.65;font-style:italic}
+.test-author{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid #E5E7EB}
+.test-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1B3A6B,#0D2347);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+
+.cta-final{background:linear-gradient(135deg,#C0151A 0%,#9e1115 100%);color:#fff;padding:90px 0;text-align:center}
+.cta-final h2{color:#fff;margin-bottom:14px}
+.cta-final p{font-size:1.15rem;opacity:.95;margin-bottom:32px;max-width:580px;margin-left:auto;margin-right:auto}
+.cta-final .btn{background:#1B3A6B;color:#fff;padding:18px 36px}
+
+footer{background:#07152A;color:rgba(255,255,255,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+@media(max-width:800px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#C0151A;font-family:'Lora',serif;font-size:1.1rem;margin-bottom:14px;font-weight:700}
+footer a{display:block;margin-bottom:8px}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-mark">R</span>
+      <span>RE/MAX Plus</span>
+    </a>
+    <ul>
+      <li><a href="#propiedades">Propiedades</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto" class="btn btn-accent" style="padding:10px 22px">Hablar con un asesor</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-content">
+    <div>
+      <div class="hero-eyebrow">— Inversiones Inmobiliarias en Punta Cana —</div>
+      <h1 class="serif">Invierte en el <em>paraíso caribeño</em> desde $70,000 USD.</h1>
+      <p>Llevamos más de 10 años ayudando a inversionistas extranjeros y dominicanos en el exterior a generar patrimonio real en Punta Cana. Más de 400 inversionistas ya confían en nosotros.</p>
+      <div class="search-box">
+        <select class="search-field">
+          <option>📍 Zona de interés</option>
+          <option>Bávaro</option>
+          <option>Cap Cana</option>
+          <option>Punta Cana Village</option>
+          <option>Cortecito</option>
+        </select>
+        <select class="search-field">
+          <option>Tipo de inversión</option>
+          <option>Apartamento</option>
+          <option>Villa</option>
+          <option>Condohotel</option>
+        </select>
+        <select class="search-field">
+          <option>Presupuesto</option>
+          <option>Desde $70,000</option>
+          <option>Desde $120,000</option>
+          <option>Desde $200,000</option>
+          <option>$500,000+</option>
+        </select>
+        <button class="btn btn-primary">Buscar</button>
+      </div>
+    </div>
+    <div class="hero-img">🌴</div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div><div class="stat-num">+400</div><div class="stat-lbl">Inversionistas activos</div></div>
+    <div><div class="stat-num">10 años</div><div class="stat-lbl">en el mercado</div></div>
+    <div><div class="stat-num">$70K</div><div class="stat-lbl">Inversión mínima</div></div>
+    <div><div class="stat-num">+12%</div><div class="stat-lbl">Rentabilidad anual est.</div></div>
+  </div>
+</div>
+
+<section id="propiedades" class="properties">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Oportunidades destacadas</span>
+      <h2>Proyectos <em style="color:#C0151A">seleccionados para invertir</em></h2>
+      <p class="subtitle">Las mejores oportunidades de inversión en Punta Cana, curadas por nuestro equipo especializado.</p>
+    </div>
+    <div class="props-filters">
+      <button class="filter-btn active">Todos</button>
+      <button class="filter-btn">Apartamentos</button>
+      <button class="filter-btn">Villas</button>
+      <button class="filter-btn">Condohoteles</button>
+      <button class="filter-btn">Frente al mar</button>
+      <button class="filter-btn">En preventa</button>
+    </div>
+    <div class="props-grid">
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">⭐ Destacado</span>
+          <span class="prop-fav">♡</span>
+          🏖️
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $85,000</div>
+          <div class="prop-title">Apartamento Bávaro Ocean View</div>
+          <div class="prop-loc">📍 Bávaro, Punta Cana</div>
+          <div class="prop-features">
+            <span>🛏 1 hab</span>
+            <span>🛁 1 baño</span>
+            <span>📐 65m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🆕 Preventa</span>
+          <span class="prop-fav">♡</span>
+          🌴
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $120,000</div>
+          <div class="prop-title">Suite en Condohotel 5 Estrellas</div>
+          <div class="prop-loc">📍 Cap Cana, Punta Cana</div>
+          <div class="prop-features">
+            <span>🛏 2 hab</span>
+            <span>🛁 2 baños</span>
+            <span>📐 90m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🌊 Frente al mar</span>
+          <span class="prop-fav">♡</span>
+          🏡
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $250,000</div>
+          <div class="prop-title">Villa con piscina privada</div>
+          <div class="prop-loc">📍 Punta Cana Village</div>
+          <div class="prop-features">
+            <span>🛏 3 hab</span>
+            <span>🛁 3 baños</span>
+            <span>📐 180m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">💰 Alta rentabilidad</span>
+          <span class="prop-fav">♡</span>
+          🏢
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $70,000</div>
+          <div class="prop-title">Studio con renta garantizada</div>
+          <div class="prop-loc">📍 Cortecito, Punta Cana</div>
+          <div class="prop-features">
+            <span>🛏 1 hab</span>
+            <span>🛁 1 baño</span>
+            <span>📐 45m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🏌️ Golf & Resort</span>
+          <span class="prop-fav">♡</span>
+          🌅
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $195,000</div>
+          <div class="prop-title">Penthouse con vista al golf</div>
+          <div class="prop-loc">📍 Cap Cana, Punta Cana</div>
+          <div class="prop-features">
+            <span>🛏 2 hab</span>
+            <span>🛁 2 baños</span>
+            <span>📐 130m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">✨ Premium</span>
+          <span class="prop-fav">♡</span>
+          🌃
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">Desde $450,000</div>
+          <div class="prop-title">Villa de lujo frente al mar</div>
+          <div class="prop-loc">📍 Playa Bávaro, Punta Cana</div>
+          <div class="prop-features">
+            <span>🛏 5 hab</span>
+            <span>🛁 4 baños</span>
+            <span>📐 350m²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="#contacto" class="btn btn-outline">Ver todas las oportunidades →</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Cómo te ayudamos</span>
+      <h2>Más que vender propiedades, construimos tu patrimonio</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-icon">🏠</div>
+        <h3>Asesoría de Inversión</h3>
+        <p>Te guiamos desde la selección del proyecto ideal hasta el cierre legal. Análisis de rentabilidad personalizado según tu presupuesto y perfil inversor.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">💼</div>
+        <h3>Gestión y Rentabilidad</h3>
+        <p>Administramos tu propiedad para que generes ingresos sin estar presente. Renta vacacional, mantenimiento y reportes mensuales en tu idioma.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">📈</div>
+        <h3>Portafolio Inmobiliario</h3>
+        <p>Diseñamos estrategias de inversión escalable en el mercado caribeño. Con más de 400 inversionistas respaldándonos, sabemos cómo hacer crecer tu capital.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="about">
+  <div class="container about-grid">
+    <div class="about-img">🏖️</div>
+    <div>
+      <span class="section-eyebrow" style="color:#C0151A">Sobre RE/MAX Plus</span>
+      <h2 class="serif">10 años convirtiendo Punta Cana en el mejor activo de nuestros clientes.</h2>
+      <p>Somos el equipo RE/MAX especializado en inversiones inmobiliarias en Punta Cana. Llevamos más de una década ayudando a inversionistas extranjeros y dominicanos en el exterior a tomar decisiones inteligentes en el mercado caribeño.</p>
+      <p>Conocemos cada proyecto, cada desarrollador y cada zona. Nuestro proceso es transparente, seguro y 100% acompañado: desde la primera consulta hasta la escritura firmada.</p>
+      <div class="about-stats">
+        <div class="about-stat"><strong>+400</strong><span>Inversionistas</span></div>
+        <div class="about-stat"><strong>10 años</strong><span>Operando</span></div>
+        <div class="about-stat"><strong>$70K</strong><span>Para empezar</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Testimonios</span>
+      <h2 class="serif">Inversionistas que ya generan en el Caribe</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Vivo en Nueva York y siempre quise invertir en República Dominicana pero no sabía cómo. RE/MAX Plus me acompañó en todo el proceso desde el primer WhatsApp. Hoy tengo un apartamento en Bávaro generando renta cada mes."</p>
+        <div class="test-author">
+          <div class="test-avatar">CR</div>
+          <div>
+            <strong>Carlos Reyes</strong><br>
+            <span style="font-size:.85rem;color:#5A6470">Inversionista dominicano, Nueva York — 2024</span>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Como inversionista europeo buscaba diversificar fuera del continente. Punta Cana superó mis expectativas de rentabilidad. El equipo de RE/MAX Plus fue profesional, claro y muy eficiente. Totalmente recomendado."</p>
+        <div class="test-author">
+          <div class="test-avatar">ML</div>
+          <div>
+            <strong>Marie Lefebvre</strong><br>
+            <span style="font-size:.85rem;color:#5A6470">Inversionista francesa, París — 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="serif">¿Listo para invertir en Punta Cana?</h2>
+    <p>Consulta gratuita y sin compromiso. Cuéntanos tu presupuesto y te mostramos las mejores oportunidades disponibles hoy.</p>
+    <a href="https://wa.me/18495854104" class="btn">Hablar con un asesor →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>RE/MAX Plus</h4>
+      <p>Especialistas en inversiones inmobiliarias en Punta Cana. Más de 10 años y +400 inversionistas satisfechos.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a>Asesoría de inversión</a>
+      <a>Gestión de renta</a>
+      <a>Portafolio inmobiliario</a>
+      <a>Consultoría legal</a>
+    </div>
+    <div>
+      <h4>Zonas</h4>
+      <a>Bávaro</a>
+      <a>Cap Cana</a>
+      <a>Punta Cana Village</a>
+      <a>Cortecito</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a>📞 +1 (849) 585-4104</a>
+      <a>📍 Punta Cana, República Dominicana</a>
+      <a>✉️ jonassotoperez@gmail.com</a>
+      <a>📱 @remaxplus.puntacana</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/18495854104" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792
