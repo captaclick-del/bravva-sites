@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jonathan Bec — Marketing Digital & Automatización con IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#0A0A0A;line-height:1.6;background:#FAFAFA;-webkit-font-smoothing:antialiased}
+.display{font-family:'Space Grotesk',sans-serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;font-weight:600;cursor:pointer;border:none;font-family:inherit;font-size:.95rem;transition:all .25s}
+.btn-dark{background:#0A0A0A;color:#fff}
+.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.btn-yellow{background:#1E88FF;color:#fff}
+.btn-yellow:hover{background:#1565C0;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#0A0A0A;border:1.5px solid #0A0A0A}
+
+nav{padding:24px 0;position:sticky;top:0;background:rgba(250,250,250,.95);backdrop-filter:blur(10px);z-index:100}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem}
+.logo span{background:#1E88FF;color:#fff;padding:2px 8px;border-radius:6px}
+nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+nav ul a{font-size:.92rem;font-weight:500}
+@media(max-width:700px){nav ul li:not(:last-child){display:none}}
+
+.hero{padding:60px 0 100px;position:relative}
+.hero-inner{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#0A0A0A;color:#fff;padding:6px 14px;border-radius:100px;font-size:.85rem;font-weight:500;margin-bottom:22px}
+.hero-tag .dot{width:8px;height:8px;background:#10B981;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.6)}50%{box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,5.5rem);line-height:1;margin-bottom:24px;font-weight:700;letter-spacing:-.03em}
+.hero h1 mark{background:#1E88FF;color:#fff;padding:0 12px;border-radius:8px;display:inline-block}
+.hero p{font-size:1.2rem;color:#525252;margin-bottom:36px;max-width:520px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.hero-skills{display:flex;gap:10px;flex-wrap:wrap}
+.skill-pill{padding:6px 14px;background:#fff;border:1px solid #E5E5E5;border-radius:100px;font-size:.82rem;font-weight:500;color:#525252}
+
+.hero-portrait{aspect-ratio:1;background:linear-gradient(135deg,#1E88FF 0%,#0D47A1 100%);border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-size:8rem;overflow:hidden;box-shadow:0 30px 80px rgba(30,136,255,.4)}
+
+section{padding:90px 0}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.05;margin-bottom:20px;letter-spacing:-.03em}
+.section-head{margin-bottom:60px;max-width:680px}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.eyebrow{display:inline-block;font-size:.82rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#525252;margin-bottom:14px}
+.section-head p{color:#525252;font-size:1.05rem}
+
+.projects{background:#fff}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:700px){.projects-grid{grid-template-columns:1fr}}
+.project{aspect-ratio:5/4;border-radius:20px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all .3s;overflow:hidden;position:relative}
+.project:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,.15)}
+.project-1{background:linear-gradient(135deg,#1E88FF 0%,#1565C0 100%);color:#fff}
+.project-2{background:linear-gradient(135deg,#0A0A0A 0%,#1F1F1F 100%);color:#fff}
+.project-3{background:linear-gradient(135deg,#0D47A1 0%,#1E88FF 100%);color:#fff}
+.project-4{background:linear-gradient(135deg,#34D399 0%,#10B981 100%);color:#fff}
+.project-meta{font-size:.85rem;opacity:.7;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.project-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-top:auto}
+.project-emoji{position:absolute;font-size:8rem;right:-20px;bottom:-20px;opacity:.2}
+
+.services{background:#FAFAFA}
+.services-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+@media(max-width:900px){.services-list{grid-template-columns:1fr}}
+.service{background:#fff;padding:34px 28px;border-radius:20px;border:1px solid #E5E5E5;transition:all .3s}
+.service:hover{border-color:#1E88FF;transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,0,0,.06)}
+.service-num{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;color:#A3A3A3;margin-bottom:18px;font-weight:600}
+.service h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:12px}
+.service p{color:#525252;font-size:.95rem;margin-bottom:20px}
+.service-list{list-style:none;border-top:1px solid #E5E5E5;padding-top:18px}
+.service-list li{padding:6px 0;font-size:.88rem;color:#525252}
+.service-list li::before{content:"→ ";color:#1E88FF;font-weight:700}
+
+.process{background:#0A0A0A;color:#fff;padding:120px 0}
+.process h2{color:#fff}
+.process .section-head p{color:rgba(255,255,255,.7)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.process-grid{grid-template-columns:1fr}}
+.process-step{padding:24px 0;border-top:2px solid #1E88FF}
+.process-step .step-num{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:#1E88FF;line-height:1;margin-bottom:14px}
+.process-step h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:8px;font-weight:600}
+.process-step p{color:rgba(255,255,255,.7);font-size:.92rem}
+
+.testimonial{background:#1E88FF;padding:120px 0;text-align:center}
+.testimonial blockquote{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3.5vw,2.4rem);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin-bottom:32px;max-width:880px;margin-left:auto;margin-right:auto;color:#fff}
+.testimonial-author{font-weight:600;color:#fff}
+.testimonial-meta{color:rgba(255,255,255,.75);font-size:.9rem;margin-top:4px}
+
+.cta-final{background:#fff;padding:120px 0;text-align:center}
+.cta-final h2{font-size:clamp(3rem,7vw,5rem);line-height:1;margin-bottom:30px;letter-spacing:-.04em}
+.cta-final h2 mark{background:#1E88FF;color:#fff;padding:0 14px;border-radius:10px}
+.cta-final p{color:#525252;font-size:1.15rem;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto}
+
+footer{background:#0A0A0A;color:rgba(255,255,255,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+@media(max-width:700px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#1E88FF;font-family:'Space Grotesk',sans-serif;font-size:.95rem;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+footer a{display:block;margin-bottom:8px;transition:color .2s}
+footer a:hover{color:#1E88FF}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">jonathan<span>.bec</span></a>
+    <ul>
+      <li><a href="#proyectos">Casos de éxito</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto" class="btn btn-dark" style="padding:10px 22px">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div>
+      <span class="hero-tag"><span class="dot"></span> Disponible para nuevos proyectos en Medellín y remoto</span>
+      <h1 class="display">Automatiza tu negocio con <mark>IA y Marketing</mark> que generan resultados.</h1>
+      <p>Soy Jonathan Bec — experto en marketing digital y automatización con inteligencia artificial. 5 años ayudando a empresarios a escalar y entrar al mundo digital con estrategia y tecnología.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/573134872191" class="btn btn-yellow">Hablemos ahora →</a>
+        <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+      </div>
+      <div class="hero-skills">
+        <span class="skill-pill">Marketing Digital</span>
+        <span class="skill-pill">Automatización IA</span>
+        <span class="skill-pill">Consultoría Estratégica</span>
+        <span class="skill-pill">Campañas Paid</span>
+        <span class="skill-pill">Embudos de Venta</span>
+        <span class="skill-pill">5 Años de Experiencia</span>
+      </div>
+    </div>
+    <div class="hero-portrait">🤖</div>
+  </div>
+</header>
+
+<section id="proyectos" class="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Casos de éxito</span>
+      <h2 class="display">Resultados reales para negocios reales.</h2>
+      <p>Lo que logramos cuando la estrategia digital y la inteligencia artificial trabajan juntas para escalar tu empresa.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project project-1">
+        <div>
+          <div class="project-meta">2024 · Automatización IA</div>
+        </div>
+        <div class="project-title">Empresa de logística automatizó el 80% de su atención al cliente</div>
+        <div class="project-emoji">🤖</div>
+      </div>
+      <div class="project project-2">
+        <div>
+          <div class="project-meta">2024 · Campañas Digitales</div>
+        </div>
+        <div class="project-title">Retail triplicó sus ventas online en 90 días</div>
+        <div class="project-emoji">📈</div>
+      </div>
+      <div class="project project-3">
+        <div>
+          <div class="project-meta">2023 · Consultoría Estratégica</div>
+        </div>
+        <div class="project-title">Empresa de servicios redujo costos operativos un 45% con IA</div>
+        <div class="project-emoji">💡</div>
+      </div>
+      <div class="project project-4">
+        <div>
+          <div class="project-meta">2023 · Marketing Integral</div>
+        </div>
+        <div class="project-title">Constructora generó 300 leads calificados en un mes</div>
+        <div class="project-emoji">🏗️</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Cómo te ayudo</span>
+      <h2 class="display">Servicios diseñados para escalar tu negocio.</h2>
+    </div>
+    <div class="services-list">
+      <div class="service">
+        <div class="service-num">01</div>
+        <h3>Marketing & Campañas</h3>
+        <p>Estrategias publicitarias inteligentes que llevan tu marca frente a los clientes correctos y generan ventas predecibles.</p>
+        <ul class="service-list">
+          <li>Estrategia de contenido digital</li>
+          <li>Campañas Meta & Google Ads</li>
+          <li>Embudos de conversión</li>
+          <li>Email marketing automatizado</li>
+          <li>Reportes de resultados mensuales</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="service-num">02</div>
+        <h3>Automatizaciones con IA</h3>
+        <p>Implementamos inteligencia artificial en tus procesos para que trabajes menos horas y generes más ingresos.</p>
+        <ul class="service-list">
+          <li>Chatbots con IA para ventas</li>
+          <li>Automatización de atención al cliente</li>
+          <li>Flujos operativos inteligentes</li>
+          <li>CRM automatizado</li>
+          <li>Integración de herramientas IA</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="service-num">03</div>
+        <h3>Consultoría Estratégica</h3>
+        <p>Asesoría personalizada para empresarios que quieren entrar al mundo digital con un plan sólido y sin perder tiempo.</p>
+        <ul class="service-list">
+          <li>Diagnóstico digital del negocio</li>
+          <li>Hoja de ruta de transformación</li>
+          <li>Identificación de oportunidades IA</li>
+          <li>Acompañamiento mensual</li>
+          <li>Formación del equipo directivo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso" class="process">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow" style="color:#1E88FF">Nuestro proceso</span>
+      <h2 class="display">De cero a digital en 4 pasos.</h2>
+      <p>Un método probado durante 5 años para llevar empresas tradicionales al siguiente nivel con tecnología e inteligencia artificial.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h3>Diagnóstico</h3>
+        <p>Sesión estratégica para entender tu negocio, metas, procesos actuales y oportunidades de digitalización.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h3>Estrategia</h3>
+        <p>Diseñamos un plan personalizado de marketing y automatización adaptado a tu industria y objetivos de crecimiento.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h3>Implementación</h3>
+        <p>Nuestro equipo capacitado ejecuta la estrategia: campañas activas, automatizaciones funcionando, resultados medibles.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h3>Optimización</h3>
+        <p>Monitoreo constante, reportes claros y mejoras continuas para maximizar tu retorno sobre la inversión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="container">
+    <blockquote class="display">"Jonathan y su equipo transformaron completamente cómo operamos. Automatizamos procesos que antes nos quitaban horas y nuestras ventas online crecieron un 200% en seis meses. La mejor inversión que hice para mi empresa."</blockquote>
+    <div class="testimonial-author">Carlos Mejía</div>
+    <div class="testimonial-meta">Gerente General · Grupo Comercial Mejía · Medellín, Colombia</div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="display">¿Listo para <mark>automatizar</mark> tu negocio?</h2>
+    <p>Agenda una sesión estratégica gratuita de 30 minutos. Analizamos tu negocio y te mostramos exactamente cómo la IA y el marketing digital pueden escalarlo.</p>
+    <a href="https://wa.me/573134872191" class="btn btn-dark">Quiero mi sesión gratuita →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>Jonathan Bec</h4>
+      <p style="font-size:.88rem">Marketing digital y automatización con IA para empresarios que quieren escalar. 5 años de experiencia y un equipo capacitado a tu servicio. Basados en Medellín, Colombia — trabajamos en todo el país y remoto.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a href="#servicios">Marketing & Campañas</a>
+      <a href="#servicios">Automatizaciones con IA</a>
+      <a href="#servicios">Consultoría Estratégica</a>
+      <a href="#proceso">Nuestro Proceso</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a href="mailto:jabc12182@gmail.com">jabc12182@gmail.com</a>
+      <a href="https://wa.me/573134872191">+57 313 487 2191</a>
+      <a href="https://wa.me/573134872191">WhatsApp</a>
+      <a>Medellín, Colombia</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/573134872191" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>
