@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Casavera Inmobiliaria — Tu hogar ideal en Madrid</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#0F1F2E;line-height:1.6;background:#fff;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Lora',serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:6px;font-weight:600;cursor:pointer;border:none;font-family:inherit;font-size:.95rem;transition:all .25s}
+.btn-primary{background:#0F1F2E;color:#fff}
+.btn-primary:hover{background:#000;transform:translateY(-2px)}
+.btn-accent{background:#C9A06A;color:#fff}
+.btn-accent:hover{background:#A8835A}
+.btn-outline{background:transparent;color:#0F1F2E;border:1.5px solid #0F1F2E}
+
+nav{padding:20px 0;border-bottom:1px solid #E5E7EB;background:#fff;position:sticky;top:0;z-index:100}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Lora',serif;font-size:1.6rem;font-weight:700}
+.logo-mark{width:36px;height:36px;background:#C9A06A;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem}
+nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+nav ul a{font-size:.92rem;color:#0F1F2E;font-weight:500}
+@media(max-width:800px){nav ul li:not(:last-child){display:none}}
+
+.hero{padding:60px 0 0;background:linear-gradient(180deg,#FAF7F2 0%,#fff 100%)}
+.hero-content{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;padding-bottom:80px}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr}}
+.hero-eyebrow{color:#C9A06A;font-weight:600;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2.8rem,6vw,4.5rem);line-height:1.05;margin-bottom:22px;letter-spacing:-.02em;font-weight:700}
+.hero h1 em{font-style:italic;color:#C9A06A;font-weight:600}
+.hero p{font-size:1.15rem;color:#5A6470;margin-bottom:32px;max-width:520px}
+.search-box{background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:20px;display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:12px;margin-bottom:24px;border:1px solid #E5E7EB}
+@media(max-width:700px){.search-box{grid-template-columns:1fr}}
+.search-field{padding:10px 14px;border:1px solid #E5E7EB;border-radius:8px;font-family:inherit;font-size:.92rem;background:#FAF7F2}
+.hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,#0F1F2E 0%,#1E3A5F 100%);border-radius:16px;position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;font-size:8rem;color:rgba(201,160,106,.4)}
+
+.stats{background:#0F1F2E;color:#fff;padding:40px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-num{font-family:'Lora',serif;font-size:2.4rem;font-weight:700;color:#C9A06A;line-height:1}
+.stat-lbl{font-size:.85rem;color:rgba(255,255,255,.7);margin-top:6px;letter-spacing:.05em;text-transform:uppercase}
+
+section{padding:90px 0}
+h2{font-family:'Lora',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;line-height:1.1;margin-bottom:18px;letter-spacing:-.02em}
+.section-head{text-align:center;max-width:680px;margin:0 auto 60px}
+.section-eyebrow{color:#C9A06A;font-weight:600;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:inline-block}
+.section-head .subtitle{color:#5A6470;font-size:1.05rem}
+
+.properties{background:#FAF7F2}
+.props-filters{display:flex;gap:10px;justify-content:center;margin-bottom:40px;flex-wrap:wrap}
+.filter-btn{padding:8px 18px;border:1.5px solid #E5E7EB;background:#fff;border-radius:100px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn.active{background:#0F1F2E;color:#fff;border-color:#0F1F2E}
+.props-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.props-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.props-grid{grid-template-columns:1fr}}
+.prop-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.06);transition:all .3s;cursor:pointer}
+.prop-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.12)}
+.prop-img{aspect-ratio:4/3;background:linear-gradient(135deg,#A8835A 0%,#C9A06A 100%);position:relative;display:flex;align-items:center;justify-content:center;font-size:4rem;color:rgba(255,255,255,.5)}
+.prop-tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.95);padding:5px 12px;border-radius:100px;font-size:.75rem;font-weight:700;color:#0F1F2E}
+.prop-fav{position:absolute;top:14px;right:14px;width:36px;height:36px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.prop-info{padding:20px}
+.prop-price{font-family:'Lora',serif;font-size:1.6rem;font-weight:700;color:#0F1F2E;line-height:1;margin-bottom:6px}
+.prop-title{font-size:1rem;font-weight:600;margin-bottom:8px}
+.prop-loc{color:#5A6470;font-size:.88rem;margin-bottom:14px}
+.prop-features{display:flex;gap:16px;padding-top:14px;border-top:1px solid #E5E7EB;color:#5A6470;font-size:.85rem}
+.prop-features span::before{content:"";margin-right:6px}
+
+.services{background:#fff}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr}}
+.service{padding:36px 24px;text-align:center;border-radius:12px;border:1px solid #E5E7EB;transition:all .3s}
+.service:hover{border-color:#C9A06A;background:#FAF7F2}
+.service-icon{width:60px;height:60px;background:#FAF7F2;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 18px;color:#C9A06A}
+.service h3{font-family:'Lora',serif;font-size:1.4rem;font-weight:700;margin-bottom:10px}
+.service p{color:#5A6470;font-size:.95rem}
+
+.about{background:#0F1F2E;color:#fff;padding:120px 0}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-img{aspect-ratio:4/5;background:linear-gradient(135deg,#C9A06A 0%,#A8835A 100%);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:6rem;color:rgba(255,255,255,.4)}
+.about h2{color:#fff;margin-bottom:20px}
+.about p{color:rgba(255,255,255,.78);margin-bottom:18px;font-size:1.05rem}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,.1)}
+.about-stat strong{color:#C9A06A;font-family:'Lora',serif;font-size:1.8rem;font-weight:700;display:block}
+.about-stat span{font-size:.8rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em}
+
+.testimonios{background:#FAF7F2}
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:980px;margin:0 auto}
+@media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+.test-card{background:#fff;padding:32px;border-radius:14px;border:1px solid #E5E7EB}
+.test-stars{color:#C9A06A;font-size:1rem;margin-bottom:14px}
+.test-quote{color:#0F1F2E;font-size:1rem;margin-bottom:20px;line-height:1.65;font-style:italic}
+.test-author{display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid #E5E7EB}
+.test-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#C9A06A,#A8835A);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+
+.cta-final{background:linear-gradient(135deg,#C9A06A 0%,#A8835A 100%);color:#fff;padding:90px 0;text-align:center}
+.cta-final h2{color:#fff;margin-bottom:14px}
+.cta-final p{font-size:1.15rem;opacity:.95;margin-bottom:32px;max-width:580px;margin-left:auto;margin-right:auto}
+.cta-final .btn{background:#0F1F2E;color:#fff;padding:18px 36px}
+
+footer{background:#06121E;color:rgba(255,255,255,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+@media(max-width:800px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#C9A06A;font-family:'Lora',serif;font-size:1.1rem;margin-bottom:14px;font-weight:700}
+footer a{display:block;margin-bottom:8px}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-mark">C</span>
+      <span>Casavera</span>
+    </a>
+    <ul>
+      <li><a href="#propiedades">Propiedades</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto" class="btn btn-accent" style="padding:10px 22px">Agendar visita</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-content">
+    <div>
+      <div class="hero-eyebrow">— Inmobiliaria Premium Madrid —</div>
+      <h1 class="serif">Tu próximo <em>hogar ideal</em> empieza aquí.</h1>
+      <p>Llevamos 12 años acompañando familias a encontrar el lugar perfecto. +850 propiedades exclusivas en las mejores zonas de Madrid.</p>
+      <div class="search-box">
+        <select class="search-field">
+          <option>📍 Zona o barrio</option>
+          <option>Salamanca</option>
+          <option>Chamberí</option>
+          <option>Chamartín</option>
+          <option>Retiro</option>
+        </select>
+        <select class="search-field">
+          <option>Operación</option>
+          <option>Comprar</option>
+          <option>Alquilar</option>
+        </select>
+        <select class="search-field">
+          <option>Precio máx</option>
+          <option>€300.000</option>
+          <option>€500.000</option>
+          <option>€800.000</option>
+          <option>€1M+</option>
+        </select>
+        <button class="btn btn-primary">Buscar</button>
+      </div>
+    </div>
+    <div class="hero-img">🏛️</div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div><div class="stat-num">+850</div><div class="stat-lbl">Propiedades activas</div></div>
+    <div><div class="stat-num">12 años</div><div class="stat-lbl">en el mercado</div></div>
+    <div><div class="stat-num">4.9★</div><div class="stat-lbl">Idealista Reviews</div></div>
+    <div><div class="stat-num">+2,400</div><div class="stat-lbl">Familias felices</div></div>
+  </div>
+</div>
+
+<section id="propiedades" class="properties">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Propiedades destacadas</span>
+      <h2>Joyas <em style="color:#C9A06A">seleccionadas a mano</em></h2>
+      <p class="subtitle">Las mejores oportunidades de esta semana, antes que salgan a los portales.</p>
+    </div>
+    <div class="props-filters">
+      <button class="filter-btn active">Todas</button>
+      <button class="filter-btn">Pisos</button>
+      <button class="filter-btn">Áticos</button>
+      <button class="filter-btn">Chalets</button>
+      <button class="filter-btn">Locales</button>
+      <button class="filter-btn">Alquiler</button>
+    </div>
+    <div class="props-grid">
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">⭐ Destacada</span>
+          <span class="prop-fav">♡</span>
+          🏢
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€620.000</div>
+          <div class="prop-title">Ático con terraza panorámica</div>
+          <div class="prop-loc">📍 Chamberí, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 3 hab</span>
+            <span>🛁 2 baños</span>
+            <span>📐 110m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🆕 Nuevo</span>
+          <span class="prop-fav">♡</span>
+          🏛️
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€890.000</div>
+          <div class="prop-title">Piso clásico reformado</div>
+          <div class="prop-loc">📍 Salamanca, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 4 hab</span>
+            <span>🛁 3 baños</span>
+            <span>📐 150m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🌳 Con jardín</span>
+          <span class="prop-fav">♡</span>
+          🏡
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€1.250.000</div>
+          <div class="prop-title">Chalet independiente</div>
+          <div class="prop-loc">📍 Pozuelo, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 5 hab</span>
+            <span>🛁 4 baños</span>
+            <span>📐 280m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">💰 Inversión</span>
+          <span class="prop-fav">♡</span>
+          🏘️
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€380.000</div>
+          <div class="prop-title">Estudio céntrico alquilado</div>
+          <div class="prop-loc">📍 Centro, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 1 hab</span>
+            <span>🛁 1 baño</span>
+            <span>📐 55m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">🏖 Vacacional</span>
+          <span class="prop-fav">♡</span>
+          🏖️
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€2.200/mes</div>
+          <div class="prop-title">Piso amueblado alquiler</div>
+          <div class="prop-loc">📍 Retiro, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 2 hab</span>
+            <span>🛁 2 baños</span>
+            <span>📐 85m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-img">
+          <span class="prop-tag">✨ Premium</span>
+          <span class="prop-fav">♡</span>
+          🌃
+        </div>
+        <div class="prop-info">
+          <div class="prop-price">€1.750.000</div>
+          <div class="prop-title">Loft de diseño con piscina</div>
+          <div class="prop-loc">📍 Chamartín, Madrid</div>
+          <div class="prop-features">
+            <span>🛏 3 hab</span>
+            <span>🛁 3 baños</span>
+            <span>📐 200m²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="#" class="btn btn-outline">Ver todas las propiedades →</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Cómo te ayudamos</span>
+      <h2>Más que vender casas, encontramos hogares</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-icon">🏠</div>
+        <h3>Compra</h3>
+        <p>Acceso a inmuebles exclusivos antes que salgan a portales. Asesoría 360°: legal, financiera y técnica.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">💼</div>
+        <h3>Venta</h3>
+        <p>Valoración profesional gratuita, fotos premium, publicación en +20 portales y captación activa.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">📈</div>
+        <h3>Inversión</h3>
+        <p>Oportunidades con rentabilidad +6% anual. Análisis financiero y gestión completa post-compra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="about">
+  <div class="container about-grid">
+    <div class="about-img">🏢</div>
+    <div>
+      <span class="section-eyebrow" style="color:#C9A06A">Sobre Casavera</span>
+      <h2 class="serif">12 años conectando familias con su hogar ideal.</h2>
+      <p>Fundada en 2013 por Pablo Casavera, somos una inmobiliaria familiar especializada en Madrid centro. No somos los más grandes, somos los más cercanos.</p>
+      <p>Nuestro equipo de 8 agentes habla 4 idiomas y conoce cada calle de Madrid. Cada cliente tiene un gestor único de principio a fin.</p>
+      <div class="about-stats">
+        <div class="about-stat"><strong>+2,400</strong><span>Operaciones</span></div>
+        <div class="about-stat"><strong>4.9★</strong><span>Valoración</span></div>
+        <div class="about-stat"><strong>97%</strong><span>Recomiendan</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Testimonios</span>
+      <h2 class="serif">Familias que ya tienen su hogar</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Llevábamos 6 meses buscando piso sin éxito. Casavera nos encontró el nuestro en 3 semanas, y encima 50K bajo presupuesto. Profesionales de los buenos."</p>
+        <div class="test-author">
+          <div class="test-avatar">JM</div>
+          <div>
+            <strong>Familia Martínez-López</strong><br>
+            <span style="font-size:.85rem;color:#5A6470">Compraron en Chamberí, 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Necesitaba vender el piso de mi madre rápido. Vinieron, hicieron fotos profesionales, lo publicaron y en 8 días tenía 3 ofertas. Vendido en 22 días al precio pedido."</p>
+        <div class="test-author">
+          <div class="test-avatar">AS</div>
+          <div>
+            <strong>Ana Serrano</strong><br>
+            <span style="font-size:.85rem;color:#5A6470">Vendió en Retiro, 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="serif">Hablemos de tu próximo hogar.</h2>
+    <p>Consulta gratuita sin compromiso. Te llamamos en menos de 1 hora.</p>
+    <a href="https://wa.me/34910223344" class="btn">Agendar consulta →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>Casavera</h4>
+      <p>Inmobiliaria boutique en Madrid centro. Desde 2013.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a>Compra</a>
+      <a>Venta</a>
+      <a>Alquiler</a>
+      <a>Inversión</a>
+    </div>
+    <div>
+      <h4>Zonas</h4>
+      <a>Salamanca</a>
+      <a>Chamberí</a>
+      <a>Retiro</a>
+      <a>Chamartín</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a>📞 +34 910 22 33 44</a>
+      <a>📍 C/ Velázquez 56, Madrid</a>
+      <a>✉️ hola@casavera.es</a>
+      <a>📱 @casavera.inmo</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34910223344" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>

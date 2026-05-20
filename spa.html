@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lumière Spa & Belleza — Reserva tu cita</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#3A2E2A;line-height:1.6;background:#FBF7F4;-webkit-font-smoothing:antialiased;font-weight:300}
+.serif{font-family:'Italiana',serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 32px;border-radius:0;font-weight:500;cursor:pointer;border:none;font-family:inherit;font-size:.88rem;transition:all .3s;letter-spacing:.2em;text-transform:uppercase}
+.btn-dark{background:#3A2E2A;color:#FBF7F4}
+.btn-dark:hover{background:#1A0F0C;transform:translateY(-2px)}
+.btn-rose{background:#D4889C;color:#fff}
+.btn-rose:hover{background:#BB6F84}
+.btn-outline{background:transparent;color:#3A2E2A;border:1px solid #3A2E2A}
+
+nav{padding:30px 0;border-bottom:1px solid rgba(58,46,42,.1)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Italiana',serif;font-size:1.8rem;letter-spacing:.05em;color:#3A2E2A}
+nav ul{display:flex;gap:36px;list-style:none}
+nav ul a{font-size:.82rem;letter-spacing:.15em;text-transform:uppercase}
+@media(max-width:700px){nav ul{display:none}}
+
+.hero{padding:90px 0 100px;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}}
+.hero-eyebrow{font-size:.78rem;letter-spacing:.4em;text-transform:uppercase;color:#D4889C;margin-bottom:18px;font-weight:500}
+.hero h1{font-family:'Italiana',serif;font-size:clamp(3rem,6vw,5rem);line-height:1.05;margin-bottom:24px;letter-spacing:.01em}
+.hero p{font-size:1.1rem;color:#7A6A65;margin-bottom:36px;max-width:480px;font-weight:300}
+@media(max-width:900px){.hero p{margin-left:auto;margin-right:auto}}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero-ctas{justify-content:center}}
+.hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,#F5E1D8 0%,#D4889C 100%);position:relative;overflow:hidden;font-size:8rem;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4)}
+
+section{padding:100px 0}
+h2{font-family:'Italiana',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.1;margin-bottom:18px;letter-spacing:.01em}
+.section-head{text-align:center;margin-bottom:70px;max-width:680px;margin-left:auto;margin-right:auto}
+.section-eyebrow{font-size:.78rem;letter-spacing:.4em;text-transform:uppercase;color:#D4889C;font-weight:500;margin-bottom:14px;display:inline-block}
+.section-head .subtitle{color:#7A6A65;font-size:1.05rem;font-weight:300}
+
+.services{background:#fff;padding:120px 0}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr}}
+.service-card{padding:40px 30px;text-align:center;border:1px solid rgba(58,46,42,.08);transition:all .3s;background:#FBF7F4}
+.service-card:hover{background:#F5E1D8;border-color:#D4889C}
+.service-icon{font-size:3rem;margin-bottom:20px}
+.service-card h3{font-family:'Italiana',serif;font-size:1.6rem;margin-bottom:12px}
+.service-card p{color:#7A6A65;font-size:.95rem;margin-bottom:18px}
+.service-price{font-size:1.1rem;color:#D4889C;font-weight:500;letter-spacing:.1em}
+
+.experience{background:#F5E1D8;padding:120px 0}
+.exp-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+@media(max-width:900px){.exp-grid{grid-template-columns:1fr}}
+.exp-list{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.exp-item{padding:20px 0;border-bottom:1px solid rgba(58,46,42,.15)}
+.exp-item h4{font-family:'Italiana',serif;font-size:1.4rem;margin-bottom:6px}
+.exp-item p{color:#7A6A65;font-size:.9rem}
+.exp-img{aspect-ratio:1;background:linear-gradient(135deg,#D4889C 0%,#BB6F84 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:6rem}
+
+.gallery{padding:100px 0;background:#fff}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:700px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+.gallery-img{aspect-ratio:1;background:linear-gradient(135deg,#F5E1D8,#D4889C);display:flex;align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.6)}
+
+.testimonios{background:#FBF7F4;padding:120px 0}
+.test-card{max-width:780px;margin:0 auto;text-align:center;padding:0 24px}
+.test-stars{color:#D4889C;font-size:1.2rem;margin-bottom:24px;letter-spacing:.3em}
+.test-quote{font-family:'Italiana',serif;font-size:clamp(1.4rem,2.5vw,2rem);line-height:1.4;margin-bottom:30px;color:#3A2E2A}
+.test-author{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#7A6A65}
+
+.cta-book{background:linear-gradient(135deg,#3A2E2A 0%,#1A0F0C 100%);color:#FBF7F4;padding:120px 0;text-align:center}
+.cta-book h2{color:#FBF7F4;margin-bottom:18px}
+.cta-book p{color:rgba(251,247,244,.7);font-size:1.1rem;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto;font-weight:300}
+
+footer{background:#1A0F0C;color:rgba(251,247,244,.6);padding:50px 0 30px}
+footer .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;font-size:.88rem}
+@media(max-width:700px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#D4889C;font-family:'Italiana',serif;font-size:1.2rem;margin-bottom:16px;letter-spacing:.05em}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">Lumière</div>
+    <ul>
+      <li><a href="#tratamientos">Tratamientos</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#reservar" class="btn btn-dark" style="padding:10px 22px">Reservar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div>
+    <div class="hero-eyebrow">— Beauty & Spa —</div>
+    <h1>Tu santuario de belleza y bienestar.</h1>
+    <p>Un espacio diseñado para que te reconectes contigo. Tratamientos faciales, corporales y de belleza con productos de alta gama.</p>
+    <div class="hero-ctas">
+      <a href="#reservar" class="btn btn-dark">Reservar cita</a>
+      <a href="#tratamientos" class="btn btn-outline">Ver tratamientos</a>
+    </div>
+  </div>
+  <div class="hero-img">🌷</div>
+</header>
+
+<section id="tratamientos" class="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Nuestros tratamientos</span>
+      <h2>Una experiencia <em style="font-style:italic;color:#D4889C">para los sentidos</em>.</h2>
+      <p class="subtitle">Cada tratamiento es personalizado tras una consulta inicial gratuita.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">💆‍♀️</div>
+        <h3>Facial Luminosidad</h3>
+        <p>Limpieza profunda, peeling enzimático, masaje facial y mascarilla iluminadora.</p>
+        <div class="service-price">90 min · €85</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💅</div>
+        <h3>Manicura Spa</h3>
+        <p>Hidratación profunda de manos, masaje, exfoliación y esmalte semipermanente.</p>
+        <div class="service-price">60 min · €45</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Masaje Relajante</h3>
+        <p>Masaje corporal completo con aceites esenciales y aromaterapia.</p>
+        <div class="service-price">75 min · €70</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <h3>Depilación láser</h3>
+        <p>Tecnología Diodo de última generación. Zonas pequeñas, medianas y completas.</p>
+        <div class="service-price">desde €35</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💄</div>
+        <h3>Maquillaje profesional</h3>
+        <p>Para bodas, eventos, sesiones de fotos o cualquier ocasión especial.</p>
+        <div class="service-price">desde €60</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👯‍♀️</div>
+        <h3>Ritual Pareja</h3>
+        <p>Experiencia compartida de 2 horas: masaje + facial + cava + bombones.</p>
+        <div class="service-price">2 personas · €180</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia" class="experience">
+  <div class="container exp-grid">
+    <div class="exp-img">✨</div>
+    <div>
+      <span class="section-eyebrow">Por qué Lumière</span>
+      <h2>Más que un salón.<br>Una experiencia.</h2>
+      <p style="color:#7A6A65;margin-bottom:30px;font-size:1.05rem">Desde el momento que cruzas la puerta hasta que sales, todo está pensado para que te sientas cuidada y especial.</p>
+      <div class="exp-list">
+        <div class="exp-item">
+          <h4>Productos premium</h4>
+          <p>Trabajamos con Babor, Comfort Zone y Aromatherapy Associates.</p>
+        </div>
+        <div class="exp-item">
+          <h4>Equipo certificado</h4>
+          <p>Esteticistas con +5 años de experiencia y formación continua.</p>
+        </div>
+        <div class="exp-item">
+          <h4>Ambiente sereno</h4>
+          <p>Espacio diseñado por la arquitecta Ana Vallejo para la relajación total.</p>
+        </div>
+        <div class="exp-item">
+          <h4>Cuidados a medida</h4>
+          <p>Consultoría gratuita previa para diseñar tu protocolo personal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" class="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Nuestro espacio</span>
+      <h2>Diseñado para <em style="font-style:italic;color:#D4889C">desconectar</em>.</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-img">🌸</div>
+      <div class="gallery-img">🕯️</div>
+      <div class="gallery-img">💆‍♀️</div>
+      <div class="gallery-img">🌿</div>
+      <div class="gallery-img">💅</div>
+      <div class="gallery-img">🧖‍♀️</div>
+      <div class="gallery-img">✨</div>
+      <div class="gallery-img">🌷</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios">
+  <div class="container test-card">
+    <div class="test-stars">★ ★ ★ ★ ★</div>
+    <p class="test-quote">"Llevo 3 años yendo a Lumière y cada visita es como un viaje. El cuidado, la atención al detalle, los productos... no he encontrado nada igual en Madrid. Mi spa de confianza para siempre."</p>
+    <p class="test-author">— Cristina Almagro · Cliente desde 2022</p>
+  </div>
+</section>
+
+<section id="reservar" class="cta-book">
+  <div class="container">
+    <span class="section-eyebrow" style="color:#D4889C">Reserva tu cita</span>
+    <h2>Tu momento de pausa<br>te espera.</h2>
+    <p>Consulta gratuita antes de tu primera cita. Te diseñamos un protocolo personalizado.</p>
+    <a href="https://wa.me/34600345678" class="btn btn-rose">Reservar por WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>Lumière</h4>
+      <p>Beauty & Spa desde 2018. Tu santuario de belleza en el corazón de Madrid.</p>
+    </div>
+    <div>
+      <h4>Visítanos</h4>
+      <p>C/ Almirante, 22<br>28004 Madrid</p>
+    </div>
+    <div>
+      <h4>Horarios</h4>
+      <p>Lun-Sáb: 10:00–20:00<br>Dom: cerrado</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <p>hola@lumiere-spa.es<br>+34 600 345 678<br>@lumiere.madrid</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34600345678" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>

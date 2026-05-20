@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FixPro — Servicios técnicos urgentes 24/7</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#0F172A;line-height:1.6;background:#F8FAFC;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-family:inherit;font-size:1rem;transition:all .2s}
+.btn-primary{background:#FF6B35;color:#fff;box-shadow:0 8px 24px rgba(255,107,53,.4)}
+.btn-primary:hover{background:#E55A2B;transform:translateY(-2px)}
+.btn-dark{background:#0F172A;color:#fff}
+.btn-dark:hover{background:#000}
+.btn-call{background:#10B981;color:#fff}
+.btn-call:hover{background:#0D9668;transform:translateY(-2px)}
+
+.urgency-bar{background:#FF6B35;color:#fff;padding:10px 0;text-align:center;font-size:.9rem;font-weight:600}
+.urgency-bar strong{font-weight:900}
+
+nav{background:#fff;padding:18px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.4rem;color:#0F172A}
+.logo-mark{width:42px;height:42px;background:#FF6B35;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem}
+nav ul{display:flex;gap:30px;list-style:none;align-items:center}
+nav ul a{font-weight:500;font-size:.95rem}
+@media(max-width:800px){nav ul li:not(:last-child){display:none}}
+
+.hero{background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);color:#fff;padding:80px 0 100px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(circle,rgba(255,107,53,.2) 0%,transparent 60%)}
+.hero-content{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+@media(max-width:900px){.hero-content{grid-template-columns:1fr}}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);padding:8px 18px;border-radius:100px;font-weight:600;font-size:.88rem;color:#10B981;margin-bottom:24px}
+.hero-badge .pulse{width:10px;height:10px;background:#10B981;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(16,185,129,.6)}50%{transform:scale(1.2);box-shadow:0 0 0 8px rgba(16,185,129,0)}}
+.hero h1{font-size:clamp(2.5rem,5.5vw,4rem);line-height:1.1;margin-bottom:20px;font-weight:900;letter-spacing:-.02em}
+.hero h1 span{color:#FF6B35}
+.hero p{font-size:1.15rem;color:rgba(255,255,255,.85);margin-bottom:36px;max-width:540px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.hero-trust{display:flex;gap:28px;flex-wrap:wrap;color:rgba(255,255,255,.7);font-size:.9rem;font-weight:600}
+.hero-trust span::before{content:"✓ ";color:#10B981;font-weight:900}
+
+.hero-card{background:rgba(255,255,255,.05);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:28px}
+.hero-card h3{font-size:1.1rem;margin-bottom:18px;color:#FF6B35}
+.hero-card-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem}
+.hero-card-row:last-child{border-bottom:none}
+.hero-card-row strong{color:#fff;font-weight:700}
+
+.trust-bar{background:#fff;padding:50px 0;border-bottom:1px solid #E2E8F0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+@media(max-width:700px){.trust-grid{grid-template-columns:repeat(2,1fr)}}
+.trust-num{font-size:2.4rem;font-weight:900;color:#FF6B35;line-height:1}
+.trust-lbl{font-size:.88rem;color:#64748B;margin-top:6px;font-weight:600}
+
+section{padding:90px 0}
+h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:900;line-height:1.1;margin-bottom:18px;letter-spacing:-.02em}
+.section-head{text-align:center;margin-bottom:60px;max-width:680px;margin-left:auto;margin-right:auto}
+.section-head .eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#FF6B35;margin-bottom:14px}
+.section-head .subtitle{color:#64748B;font-size:1.05rem}
+
+.services{background:#F8FAFC}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.services-grid{grid-template-columns:1fr}}
+.service{background:#fff;padding:30px 26px;border-radius:14px;border:1px solid #E2E8F0;transition:all .3s}
+.service:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08);border-color:#FF6B35}
+.service-icon{width:56px;height:56px;background:#FFF1EB;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:18px}
+.service h3{font-size:1.15rem;margin-bottom:8px;font-weight:800}
+.service p{color:#64748B;font-size:.93rem;margin-bottom:12px}
+.service-price{font-size:.85rem;color:#FF6B35;font-weight:700}
+
+.process{background:#fff}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative}
+@media(max-width:900px){.steps-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.steps-grid{grid-template-columns:1fr}}
+.step-card{text-align:center;padding:24px 16px}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:#FF6B35;color:#fff;font-weight:900;font-size:1.4rem;margin-bottom:16px;box-shadow:0 8px 20px rgba(255,107,53,.3)}
+.step-card h3{font-size:1.1rem;margin-bottom:8px}
+.step-card p{color:#64748B;font-size:.92rem}
+
+.coverage{background:#0F172A;color:#fff}
+.coverage h2{color:#fff}
+.coverage .section-head .subtitle{color:rgba(255,255,255,.7)}
+.coverage .section-head .eyebrow{color:#FF6B35}
+.coverage-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:880px;margin:0 auto}
+@media(max-width:700px){.coverage-grid{grid-template-columns:1fr 1fr}}
+.zone{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:18px 20px;border-radius:10px;display:flex;align-items:center;gap:14px;font-weight:600}
+.zone::before{content:"📍";font-size:1.2rem}
+
+.testimonios{background:#F8FAFC}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.test-grid{grid-template-columns:1fr}}
+.test-card{background:#fff;padding:28px;border-radius:14px;border:1px solid #E2E8F0}
+.test-stars{color:#FFB627;font-size:.95rem;margin-bottom:14px}
+.test-quote{color:#0F172A;margin-bottom:16px;font-size:.95rem;line-height:1.6}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF6B35,#E55A2B);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.95rem}
+.test-name{font-weight:700;font-size:.95rem}
+.test-meta{color:#64748B;font-size:.8rem}
+
+.cta-final{background:linear-gradient(135deg,#FF6B35 0%,#E55A2B 100%);color:#fff;padding:90px 0;text-align:center}
+.cta-final h2{color:#fff;margin-bottom:14px}
+.cta-final p{font-size:1.15rem;opacity:.92;margin-bottom:32px;max-width:580px;margin-left:auto;margin-right:auto}
+.cta-final .btn{background:#fff;color:#FF6B35;font-size:1.1rem;padding:18px 36px}
+.cta-final .btn:hover{background:#0F172A;color:#fff}
+
+footer{background:#0F172A;color:rgba(255,255,255,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+@media(max-width:800px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#FF6B35;margin-bottom:14px;font-size:.95rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+footer a{display:block;margin-bottom:8px}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.5);z-index:99;animation:pulse 2s infinite}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+.call-float{position:fixed;bottom:100px;right:24px;width:62px;height:62px;background:#FF6B35;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,107,53,.5);z-index:99;color:#fff;font-size:1.6rem}
+</style>
+</head>
+<body>
+
+<div class="urgency-bar">
+  ⚡ <strong>Emergencia 24/7</strong> · Llamamos en menos de 30 minutos · Sin recargo nocturno
+</div>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-mark">🔧</span>
+      <span>FixPro</span>
+    </a>
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Cómo funciona</a></li>
+      <li><a href="#cobertura">Cobertura</a></li>
+      <li><a href="tel:+34900112233" class="btn btn-call">📞 900 11 22 33</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-content">
+    <div>
+      <span class="hero-badge"><span class="pulse"></span> 12 técnicos disponibles ahora</span>
+      <h1>Técnicos urgentes en <span>tu casa hoy</span>, no la próxima semana.</h1>
+      <p>Plomería, electricidad, cerrajería, calderas, aire acondicionado. <strong style="color:#fff">Llegamos en menos de 60 minutos</strong> a toda Madrid.</p>
+      <div class="hero-ctas">
+        <a href="tel:+34900112233" class="btn btn-call">📞 Llamar ahora · 900 11 22 33</a>
+        <a href="https://wa.me/34900112233" class="btn btn-primary">WhatsApp 24/7</a>
+      </div>
+      <div class="hero-trust">
+        <span>Presupuesto gratis</span>
+        <span>Sin desplazamiento</span>
+        <span>Garantía 6 meses</span>
+        <span>Pago al finalizar</span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>⚡ Tiempos de respuesta hoy</h3>
+      <div class="hero-card-row"><span>Plomería urgente</span><strong>~25 min</strong></div>
+      <div class="hero-card-row"><span>Cerrajería 24h</span><strong>~20 min</strong></div>
+      <div class="hero-card-row"><span>Electricidad</span><strong>~45 min</strong></div>
+      <div class="hero-card-row"><span>Calderas / gas</span><strong>~50 min</strong></div>
+      <div class="hero-card-row"><span>Aire acondicionado</span><strong>Mismo día</strong></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust-bar">
+  <div class="container trust-grid">
+    <div><div class="trust-num">+12,400</div><div class="trust-lbl">Servicios completados</div></div>
+    <div><div class="trust-num">4.9★</div><div class="trust-lbl">Google Reviews (823)</div></div>
+    <div><div class="trust-num">24/7</div><div class="trust-lbl">Disponibilidad real</div></div>
+    <div><div class="trust-num">&lt;60 min</div><div class="trust-lbl">Tiempo de llegada</div></div>
+  </div>
+</div>
+
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Qué hacemos</span>
+      <h2>Resolvemos cualquier emergencia del hogar</h2>
+      <p class="subtitle">+200 servicios diferentes con presupuesto cerrado antes de empezar.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-icon">🚰</div>
+        <h3>Fontanería</h3>
+        <p>Fugas, atascos, reparación de tuberías, instalación de grifos y sanitarios.</p>
+        <div class="service-price">Desde €45 + IVA</div>
+      </div>
+      <div class="service">
+        <div class="service-icon">⚡</div>
+        <h3>Electricidad</h3>
+        <p>Cuadros eléctricos, cortocircuitos, instalación de enchufes, averías generales.</p>
+        <div class="service-price">Desde €55 + IVA</div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔐</div>
+        <h3>Cerrajería 24h</h3>
+        <p>Apertura de puertas, cambio de cerraduras, copia de llaves, bombines anti-bumping.</p>
+        <div class="service-price">Desde €65 + IVA</div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔥</div>
+        <h3>Calderas y gas</h3>
+        <p>Revisión, mantenimiento, reparación. Técnicos autorizados RITE.</p>
+        <div class="service-price">Desde €75 + IVA</div>
+      </div>
+      <div class="service">
+        <div class="service-icon">❄️</div>
+        <h3>Aire acondicionado</h3>
+        <p>Instalación, reparación, mantenimiento, recarga de gas refrigerante.</p>
+        <div class="service-price">Desde €60 + IVA</div>
+      </div>
+      <div class="service">
+        <div class="service-icon">🛠️</div>
+        <h3>Reformas pequeñas</h3>
+        <p>Pintura, alicatado, montajes, persianas, mosquiteras y reparaciones varias.</p>
+        <div class="service-price">Presupuesto a medida</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso" class="process">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>En 4 pasos tienes a un técnico en casa</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Llamas o escribes</h3>
+        <p>Por teléfono o WhatsApp 24/7. Te respondemos en menos de 2 minutos.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Presupuesto al instante</h3>
+        <p>Te damos un precio aproximado al momento. Sin sorpresas, sin letra pequeña.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Técnico en menos de 1h</h3>
+        <p>Asignamos al técnico más cercano. Te confirmamos hora de llegada exacta.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Pagas cuando acaba</h3>
+        <p>Solo pagas si quedas satisfecho. Tarjeta, efectivo, Bizum o transferencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cobertura" class="coverage">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Cobertura</span>
+      <h2>Llegamos a toda la Comunidad de Madrid</h2>
+      <p class="subtitle">Sin recargo por desplazamiento. Tarifa única en cualquier zona.</p>
+    </div>
+    <div class="coverage-grid">
+      <div class="zone">Madrid Centro</div>
+      <div class="zone">Chamartín</div>
+      <div class="zone">Salamanca</div>
+      <div class="zone">Chamberí</div>
+      <div class="zone">Retiro</div>
+      <div class="zone">Tetuán</div>
+      <div class="zone">Moncloa</div>
+      <div class="zone">Latina</div>
+      <div class="zone">Carabanchel</div>
+      <div class="zone">Vallecas</div>
+      <div class="zone">Alcobendas</div>
+      <div class="zone">Pozuelo</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonios">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Reseñas reales</span>
+      <h2>+800 clientes nos califican 5 estrellas</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Llamé a las 11 de la noche por una fuga. En 30 minutos estaba el técnico en casa, lo arregló en 1h y el precio fue justo. Súper recomendado."</p>
+        <div class="test-author">
+          <div class="test-avatar">MG</div>
+          <div>
+            <div class="test-name">Marta García</div>
+            <div class="test-meta">Hace 3 días · Madrid Centro</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Se me quedó la llave dentro de casa un domingo. El cerrajero llegó en 20 minutos, abrió la puerta sin romperla y me cambió el bombín. Profesionales de verdad."</p>
+        <div class="test-author">
+          <div class="test-avatar">PR</div>
+          <div>
+            <div class="test-name">Pablo Ramírez</div>
+            <div class="test-meta">Hace 1 semana · Chamberí</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Nuestra caldera se rompió en pleno invierno con niños pequeños. Vinieron el mismo día, presupuesto claro, pieza nueva instalada en 2 horas. Vida salvada."</p>
+        <div class="test-author">
+          <div class="test-avatar">CL</div>
+          <div>
+            <div class="test-name">Carlos López</div>
+            <div class="test-meta">Hace 2 semanas · Pozuelo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="container">
+    <h2>¿Tienes una emergencia ahora?</h2>
+    <p>Llama o escribe. Te respondemos en 2 minutos y tenemos a un técnico en tu casa en menos de 1 hora.</p>
+    <a href="tel:+34900112233" class="btn">📞 Llamar ahora · 900 11 22 33</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>FixPro</h4>
+      <p>Servicios técnicos urgentes en Madrid. 24 horas, 7 días, 365 al año.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a>Plomería</a>
+      <a>Electricidad</a>
+      <a>Cerrajería</a>
+      <a>Calderas</a>
+      <a>Aire acondicionado</a>
+    </div>
+    <div>
+      <h4>Cobertura</h4>
+      <a>Madrid Centro</a>
+      <a>Norte</a>
+      <a>Sur</a>
+      <a>Este</a>
+      <a>Oeste</a>
+    </div>
+    <div>
+      <h4>Contacto 24/7</h4>
+      <a>📞 900 11 22 33</a>
+      <a>📱 +34 600 11 22 33</a>
+      <a>✉️ urgencias@fixpro.es</a>
+    </div>
+  </div>
+</footer>
+
+<a href="tel:+34900112233" class="call-float">📞</a>
+<a href="https://wa.me/34900112233" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>

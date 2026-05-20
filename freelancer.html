@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Andrea Salas — Diseñadora UX/UI & Branding</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#0A0A0A;line-height:1.6;background:#FAFAFA;-webkit-font-smoothing:antialiased}
+.display{font-family:'Space Grotesk',sans-serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;font-weight:600;cursor:pointer;border:none;font-family:inherit;font-size:.95rem;transition:all .25s}
+.btn-dark{background:#0A0A0A;color:#fff}
+.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.btn-yellow{background:#FFE94D;color:#0A0A0A}
+.btn-yellow:hover{background:#FFD500;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#0A0A0A;border:1.5px solid #0A0A0A}
+
+nav{padding:24px 0;position:sticky;top:0;background:rgba(250,250,250,.95);backdrop-filter:blur(10px);z-index:100}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem}
+.logo span{background:#FFE94D;padding:2px 8px;border-radius:6px}
+nav ul{display:flex;gap:32px;list-style:none;align-items:center}
+nav ul a{font-size:.92rem;font-weight:500}
+@media(max-width:700px){nav ul li:not(:last-child){display:none}}
+
+.hero{padding:60px 0 100px;position:relative}
+.hero-inner{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#0A0A0A;color:#fff;padding:6px 14px;border-radius:100px;font-size:.85rem;font-weight:500;margin-bottom:22px}
+.hero-tag .dot{width:8px;height:8px;background:#10B981;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.6)}50%{box-shadow:0 0 0 6px rgba(16,185,129,0)}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,5.5rem);line-height:1;margin-bottom:24px;font-weight:700;letter-spacing:-.03em}
+.hero h1 mark{background:#FFE94D;padding:0 12px;border-radius:8px;display:inline-block}
+.hero p{font-size:1.2rem;color:#525252;margin-bottom:36px;max-width:520px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.hero-skills{display:flex;gap:10px;flex-wrap:wrap}
+.skill-pill{padding:6px 14px;background:#fff;border:1px solid #E5E5E5;border-radius:100px;font-size:.82rem;font-weight:500;color:#525252}
+
+.hero-portrait{aspect-ratio:1;background:linear-gradient(135deg,#FFE94D 0%,#FFD500 100%);border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;font-size:8rem;overflow:hidden;box-shadow:0 30px 80px rgba(255,233,77,.4)}
+
+section{padding:90px 0}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;line-height:1.05;margin-bottom:20px;letter-spacing:-.03em}
+.section-head{margin-bottom:60px;max-width:680px}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.eyebrow{display:inline-block;font-size:.82rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#525252;margin-bottom:14px}
+.section-head p{color:#525252;font-size:1.05rem}
+
+.projects{background:#fff}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(max-width:700px){.projects-grid{grid-template-columns:1fr}}
+.project{aspect-ratio:5/4;border-radius:20px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all .3s;overflow:hidden;position:relative}
+.project:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,.15)}
+.project-1{background:linear-gradient(135deg,#FFE94D 0%,#FFD500 100%);color:#0A0A0A}
+.project-2{background:linear-gradient(135deg,#0A0A0A 0%,#1F1F1F 100%);color:#fff}
+.project-3{background:linear-gradient(135deg,#F472B6 0%,#EC4899 100%);color:#fff}
+.project-4{background:linear-gradient(135deg,#34D399 0%,#10B981 100%);color:#fff}
+.project-meta{font-size:.85rem;opacity:.7;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.project-title{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-top:auto}
+.project-emoji{position:absolute;font-size:8rem;right:-20px;bottom:-20px;opacity:.2}
+
+.services{background:#FAFAFA}
+.services-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+@media(max-width:900px){.services-list{grid-template-columns:1fr}}
+.service{background:#fff;padding:34px 28px;border-radius:20px;border:1px solid #E5E5E5;transition:all .3s}
+.service:hover{border-color:#FFE94D;transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,0,0,.06)}
+.service-num{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;color:#A3A3A3;margin-bottom:18px;font-weight:600}
+.service h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:12px}
+.service p{color:#525252;font-size:.95rem;margin-bottom:20px}
+.service-list{list-style:none;border-top:1px solid #E5E5E5;padding-top:18px}
+.service-list li{padding:6px 0;font-size:.88rem;color:#525252}
+.service-list li::before{content:"→ ";color:#0A0A0A;font-weight:700}
+
+.process{background:#0A0A0A;color:#fff;padding:120px 0}
+.process h2{color:#fff}
+.process .section-head p{color:rgba(255,255,255,.7)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:900px){.process-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.process-grid{grid-template-columns:1fr}}
+.process-step{padding:24px 0;border-top:2px solid #FFE94D}
+.process-step .step-num{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:#FFE94D;line-height:1;margin-bottom:14px}
+.process-step h3{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;margin-bottom:8px;font-weight:600}
+.process-step p{color:rgba(255,255,255,.7);font-size:.92rem}
+
+.testimonial{background:#FFE94D;padding:120px 0;text-align:center}
+.testimonial blockquote{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,3.5vw,2.4rem);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin-bottom:32px;max-width:880px;margin-left:auto;margin-right:auto}
+.testimonial-author{font-weight:600}
+.testimonial-meta{color:#525252;font-size:.9rem;margin-top:4px}
+
+.cta-final{background:#fff;padding:120px 0;text-align:center}
+.cta-final h2{font-size:clamp(3rem,7vw,5rem);line-height:1;margin-bottom:30px;letter-spacing:-.04em}
+.cta-final h2 mark{background:#FFE94D;padding:0 14px;border-radius:10px}
+.cta-final p{color:#525252;font-size:1.15rem;margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto}
+
+footer{background:#0A0A0A;color:rgba(255,255,255,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+@media(max-width:700px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#FFE94D;font-family:'Space Grotesk',sans-serif;font-size:.95rem;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+footer a{display:block;margin-bottom:8px;transition:color .2s}
+footer a:hover{color:#FFE94D}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:62px;height:62px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">andrea<span>.</span>salas</a>
+    <ul>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto" class="btn btn-dark" style="padding:10px 22px">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div>
+      <span class="hero-tag"><span class="dot"></span> Disponible para 2 proyectos en 2026</span>
+      <h1 class="display">Diseño <mark>productos digitales</mark> que la gente ama usar.</h1>
+      <p>Soy Andrea Salas — diseñadora UX/UI freelance con 7 años creando experiencias para startups y empresas Fortune 500.</p>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn btn-yellow">Empecemos a hablar →</a>
+        <a href="#proyectos" class="btn btn-outline">Ver proyectos</a>
+      </div>
+      <div class="hero-skills">
+        <span class="skill-pill">UX Research</span>
+        <span class="skill-pill">UI Design</span>
+        <span class="skill-pill">Branding</span>
+        <span class="skill-pill">Figma</span>
+        <span class="skill-pill">Webflow</span>
+        <span class="skill-pill">Design Systems</span>
+      </div>
+    </div>
+    <div class="hero-portrait">👩‍💻</div>
+  </div>
+</header>
+
+<section id="proyectos" class="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Trabajo reciente</span>
+      <h2 class="display">Proyectos seleccionados.</h2>
+      <p>Una muestra de lo que he construido con startups y equipos increíbles.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project project-1">
+        <div>
+          <div class="project-meta">2025 · Fintech</div>
+        </div>
+        <div class="project-title">Rediseño app bancaria — 4M usuarios</div>
+        <div class="project-emoji">💳</div>
+      </div>
+      <div class="project project-2">
+        <div>
+          <div class="project-meta">2025 · SaaS B2B</div>
+        </div>
+        <div class="project-title">Dashboard analytics 0→1</div>
+        <div class="project-emoji">📊</div>
+      </div>
+      <div class="project project-3">
+        <div>
+          <div class="project-meta">2024 · E-commerce</div>
+        </div>
+        <div class="project-title">Brand identity moda sostenible</div>
+        <div class="project-emoji">👗</div>
+      </div>
+      <div class="project project-4">
+        <div>
+          <div class="project-meta">2024 · Healthtech</div>
+        </div>
+        <div class="project-title">Plataforma reservas médicas</div>
+        <div class="project-emoji">🩺</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Cómo te ayudo</span>
+      <h2 class="display">Lo que entrego.</h2>
+    </div>
+    <div class="services-list">
+      <div class="service">
+        <div class="service-num">01</div>
+        <h3>UX/UI Design</h3>
+        <p>Diseño completo de productos digitales desde la investigación hasta la entrega.</p>
+        <ul class="service-list">
+          <li>User research & personas</li>
+          <li>Wireframes & prototipos</li>
+          <li>Diseño UI alta fidelidad</li>
+          <li>Testing con usuarios</li>
+          <li>Handoff a desarrollo</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="service-num">02</div>
+        <h3>Branding</h3>
+        <p>Identidades de marca que conectan emocionalmente con tu audiencia.</p>
+        <ul class="service-list">
+          <li>Estrategia de marca</li>
+          <li>Identidad visual completa</li>
+          <li>Logotipo & sistema gráfico</li>
+          <li>Guidelines de marca</li>
+          <li>Aplicaciones físicas y digitales</li>
+        </ul>
+      </div>
+      <div class="service">
+        <div class="service-num">03</div>
+        <h3>Webflow Dev</h3>
+        <p>Construyo tu sitio en Webflow con animaciones y CMS dinámicos.</p>
+        <ul class="service-list">
+          <li>Diseño + desarrollo Webflow</li>
+          <li>CMS configurado</li>
+          <li>Animaciones GSAP/Lottie</li>
+          <li>SEO técnico optimizado</li>
+          <li>Training para tu equipo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso" class="process">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow" style="color:#FFE94D">Mi proceso</span>
+      <h2 class="display">Trabajamos en 4 etapas.</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h3>Descubrimiento</h3>
+        <p>Llamada de 60 min para entender tu negocio, audiencia, objetivos y constraints.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h3>Investigación</h3>
+        <p>Análisis de competencia, entrevistas a usuarios y benchmarks. Defino la estrategia.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h3>Diseño</h3>
+        <p>Wireframes, prototipos y UI final. 2-3 rondas de revisión incluidas.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h3>Entrega</h3>
+        <p>Handoff completo en Figma, documentación y soporte 30 días post-launch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="container">
+    <blockquote class="display">"Andrea no solo diseña bonito — entiende el negocio. En 3 meses rediseñó nuestro producto y duplicamos la activación de usuarios."</blockquote>
+    <div class="testimonial-author">Diego Vásquez</div>
+    <div class="testimonial-meta">CEO en Nutrify · App Store Featured 2025</div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="display">¿Trabajamos <mark>juntos</mark>?</h2>
+    <p>Tengo 2 cupos abiertos para proyectos en 2026. Hablemos 30 minutos sin compromiso.</p>
+    <a href="https://wa.me/34678901234" class="btn btn-dark">Empecemos →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>Andrea Salas</h4>
+      <p style="font-size:.88rem">Diseñadora UX/UI & Branding. Freelance desde 2018. Basada en Barcelona, trabajando remoto con todo el mundo.</p>
+    </div>
+    <div>
+      <h4>Servicios</h4>
+      <a>UX/UI Design</a>
+      <a>Branding</a>
+      <a>Webflow Dev</a>
+      <a>Design Audit</a>
+    </div>
+    <div>
+      <h4>Conecta</h4>
+      <a>hola@andreasalas.design</a>
+      <a>@andreasalas_design</a>
+      <a>LinkedIn</a>
+      <a>Dribbble</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34678901234" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>

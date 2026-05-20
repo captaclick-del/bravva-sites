@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carla Rivera — Coach de Vida & Bienestar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#2C2C2C;line-height:1.6;background:#FAFAF8;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Playfair Display',serif}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 32px;border-radius:100px;font-weight:700;cursor:pointer;border:none;transition:all .25s;font-family:inherit;font-size:.95rem}
+.btn-dark{background:#2C2C2C;color:#fff}
+.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#2C2C2C;border:2px solid #2C2C2C}
+
+nav{padding:24px 0;position:sticky;top:0;background:rgba(250,250,248,.95);backdrop-filter:blur(10px);z-index:100;border-bottom:1px solid rgba(0,0,0,.05)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
+nav ul{display:flex;gap:32px;list-style:none}
+nav ul a{font-size:.92rem;color:#5a5a5a}
+nav ul a:hover{color:#2C2C2C}
+@media(max-width:700px){nav ul{display:none}}
+
+.hero{padding:80px 0 100px;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+@media(max-width:900px){.hero{grid-template-columns:1fr;text-align:center}}
+.hero h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;margin-bottom:24px;letter-spacing:-.04em}
+.hero h1 em{font-style:italic;color:#D4A574}
+.hero p{font-size:1.15rem;color:#5a5a5a;margin-bottom:32px;max-width:480px}
+@media(max-width:900px){.hero p{margin-left:auto;margin-right:auto}}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero-ctas{justify-content:center}}
+.hero-img{aspect-ratio:4/5;background:linear-gradient(135deg,#E8D5C4 0%,#D4A574 100%);border-radius:280px 280px 24px 24px;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(212,165,116,.3)}
+.hero-img::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.2) 0%,transparent 60%)}
+.hero-img-fig{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:14rem;line-height:1;opacity:.8}
+
+.stats{padding:60px 0;background:#2C2C2C;color:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#D4A574}
+.stat-lbl{font-size:.88rem;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+
+section{padding:100px 0}
+h2{font-size:clamp(2rem,4vw,3rem);font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px}
+.subtitle{font-size:1.1rem;color:#5a5a5a;max-width:600px;margin:0 auto 60px;text-align:center}
+.section-head{text-align:center}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.services-grid{grid-template-columns:1fr}}
+.service{background:#fff;padding:36px 28px;border-radius:24px;border:1px solid rgba(0,0,0,.05);transition:all .3s}
+.service:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+.service-icon{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#E8D5C4 0%,#D4A574 100%);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:20px}
+.service h3{font-size:1.25rem;margin-bottom:10px;font-weight:700}
+.service p{color:#5a5a5a;font-size:.95rem}
+
+.about{background:#fff;padding:100px 0}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-img{aspect-ratio:4/5;background:linear-gradient(135deg,#D4A574 0%,#A67C52 100%);border-radius:24px;display:flex;align-items:flex-end;justify-content:center;font-size:10rem;line-height:1;opacity:.9}
+.about h2{margin-bottom:24px}
+.about p{color:#5a5a5a;margin-bottom:18px;font-size:1.05rem}
+blockquote{border-left:4px solid #D4A574;padding-left:20px;font-style:italic;color:#2C2C2C;margin:24px 0;font-size:1.1rem}
+
+.testimonials{background:#FAFAF8}
+.test-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:980px;margin:0 auto}
+@media(max-width:700px){.test-grid{grid-template-columns:1fr}}
+.test{background:#fff;padding:32px;border-radius:20px;border:1px solid rgba(0,0,0,.05)}
+.test-stars{color:#D4A574;font-size:1rem;margin-bottom:14px}
+.test-quote{font-size:1.05rem;color:#2C2C2C;margin-bottom:20px;line-height:1.7}
+.test-author{display:flex;align-items:center;gap:14px}
+.test-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#E8D5C4 0%,#D4A574 100%);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+
+.cta-final{background:#2C2C2C;color:#fff;padding:100px 0;text-align:center}
+.cta-final h2{color:#fff;margin-bottom:18px}
+.cta-final p{color:rgba(255,255,255,.75);margin-bottom:32px;font-size:1.15rem}
+.cta-final .btn{background:#D4A574;color:#2C2C2C;font-weight:800}
+.cta-final .btn:hover{background:#fff}
+
+footer{padding:40px 0;text-align:center;color:#888;font-size:.88rem;background:#2C2C2C;color:rgba(255,255,255,.5)}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo serif">Carla Rivera</div>
+    <ul>
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#testimonios">Historias</a></li>
+      <li><a href="#contacto" class="btn btn-dark" style="padding:10px 22px">Reservar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero container">
+  <div>
+    <span style="font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#D4A574">Coach de Vida & Bienestar</span>
+    <h1 class="serif" style="margin-top:14px">Recupera tu <em>brillo</em> interior y vive con propósito.</h1>
+    <p>Acompañamiento 1:1 para mujeres que sienten que están listas para el siguiente nivel pero no saben por dónde empezar.</p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn btn-dark">Agendar sesión gratuita →</a>
+      <a href="#sobre" class="btn btn-outline">Conoce más</a>
+    </div>
+  </div>
+  <div class="hero-img"><div class="hero-img-fig">🌸</div></div>
+</header>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div><div class="stat-num">+200</div><div class="stat-lbl">Mujeres transformadas</div></div>
+    <div><div class="stat-num">8 años</div><div class="stat-lbl">de experiencia</div></div>
+    <div><div class="stat-num">96%</div><div class="stat-lbl">Tasa de satisfacción</div></div>
+    <div><div class="stat-num">3 países</div><div class="stat-lbl">Sesiones online</div></div>
+  </div>
+</div>
+
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="serif">Cómo te <em style="color:#D4A574">acompaño</em></h2>
+      <p class="subtitle">Programas diseñados para diferentes momentos de tu camino.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service">
+        <div class="service-icon">🌱</div>
+        <h3>Sesiones 1:1</h3>
+        <p>Encuentros semanales de 60 min donde trabajamos tus objetivos personales. Espacio seguro, sin juicios, 100% confidencial.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">✨</div>
+        <h3>Programa Transformación 90</h3>
+        <p>3 meses de acompañamiento intensivo con sesiones, ejercicios y comunidad. Ideal si quieres cambios profundos y duraderos.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🧘</div>
+        <h3>Talleres grupales</h3>
+        <p>Workshops mensuales online sobre autoestima, propósito de vida, gestión emocional y relaciones sanas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="about">
+  <div class="container about-grid">
+    <div class="about-img">👩‍🦰</div>
+    <div>
+      <span style="font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#D4A574">Sobre mí</span>
+      <h2 class="serif" style="margin-top:14px">Carla Rivera</h2>
+      <p>Certificada en Coaching Ontológico (ICF), Psicología Positiva (Universidad de Pennsylvania) y Mindfulness (Búcaramnga). Llevo 8 años acompañando a mujeres en procesos de transformación personal.</p>
+      <p>Antes de ser coach trabajé 12 años en corporativo. Sé exactamente cómo se siente estar "exitosa" por fuera y vacía por dentro. De ahí nació mi pasión por este trabajo.</p>
+      <blockquote class="serif">"Mi misión es que cada mujer descubra su voz auténtica y la viva sin pedir permiso."</blockquote>
+      <a href="#contacto" class="btn btn-dark">Hablemos →</a>
+    </div>
+  </div>
+</section>
+
+<section id="testimonios" class="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="serif">Historias que me <em style="color:#D4A574">inspiran</em></h2>
+      <p class="subtitle">Estas mujeres confiaron y hoy viven con más propósito.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Llegué a Carla agotada, sintiendo que mi vida no tenía rumbo. En 3 meses cambié la conversación interna conmigo misma. Hoy renuncié al trabajo que me drenaba y abrí mi propio estudio de yoga."</p>
+        <div class="test-author">
+          <div class="test-avatar">VM</div>
+          <div><strong>Valeria Méndez</strong><br><span style="font-size:.85rem;color:#888">Fundadora, Suave Studio</span></div>
+        </div>
+      </div>
+      <div class="test">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Carla no te dice qué hacer. Te ayuda a descubrirlo tú misma. Y eso cambia todo. He hecho terapia por años, pero estas sesiones tuvieron un impacto distinto, más profundo."</p>
+        <div class="test-author">
+          <div class="test-avatar">LP</div>
+          <div><strong>Laura Pérez</strong><br><span style="font-size:.85rem;color:#888">Diseñadora · 38 años</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="cta-final">
+  <div class="container">
+    <h2 class="serif">¿Lista para tu próximo capítulo?</h2>
+    <p>Sesión de descubrimiento gratuita de 30 min. Cero presión, cero compromiso.</p>
+    <a href="#" class="btn">Agendar mi sesión gratuita →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Carla Rivera · Coaching de Vida · hola@carlarivera.com · +34 600 123 456
+  </div>
+</footer>
+
+<a href="https://wa.me/34600123456" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>

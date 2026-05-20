@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tierra Verde — Cocina de Autor con Producto Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;color:#1A1A1A;line-height:1.6;background:#FFFCF7;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Cormorant Garamond',serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1180px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 32px;border-radius:4px;font-weight:600;cursor:pointer;border:none;font-family:inherit;font-size:.95rem;transition:all .25s;letter-spacing:.08em;text-transform:uppercase}
+.btn-dark{background:#1A3024;color:#FFFCF7}
+.btn-dark:hover{background:#0F1F17;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#FFFCF7;border:1.5px solid #FFFCF7}
+.btn-outline:hover{background:#FFFCF7;color:#1A3024}
+
+nav{padding:24px 0;position:absolute;top:0;left:0;right:0;z-index:100}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.8rem;font-weight:700;letter-spacing:.05em;color:#FFFCF7;font-family:'Cormorant Garamond',serif}
+nav ul{display:flex;gap:36px;list-style:none}
+nav ul a{font-size:.82rem;color:#FFFCF7;letter-spacing:.15em;text-transform:uppercase;font-weight:500}
+@media(max-width:700px){nav ul{display:none}}
+
+.hero{height:100vh;min-height:600px;background:linear-gradient(180deg,rgba(26,48,36,.55) 0%,rgba(26,48,36,.85) 100%),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="g"><stop offset="0" stop-color="%23A8B398"/><stop offset="1" stop-color="%231A3024"/></radialGradient></defs><rect width="1200" height="800" fill="url(%23g)"/><circle cx="200" cy="200" r="100" fill="%23D4B57E" opacity=".3"/><circle cx="900" cy="600" r="150" fill="%23A8B398" opacity=".4"/></svg>');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;text-align:center;color:#FFFCF7;position:relative}
+.hero-content{max-width:780px;padding:0 24px}
+.hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:600;line-height:1.05;margin-bottom:18px;letter-spacing:-.01em}
+.hero p{font-size:1.25rem;margin-bottom:36px;opacity:.92;font-weight:300}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-eyebrow{font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;opacity:.8;margin-bottom:16px;font-weight:500}
+
+section{padding:100px 0}
+h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:600;line-height:1.05;margin-bottom:24px}
+.section-head{text-align:center;margin-bottom:60px;max-width:680px;margin-left:auto;margin-right:auto}
+.section-head .subtitle{color:#5F6B5F;font-size:1.1rem}
+.section-eyebrow{font-size:.82rem;letter-spacing:.3em;text-transform:uppercase;color:#D4B57E;font-weight:600;margin-bottom:14px;display:inline-block}
+
+.about{padding:120px 0;background:#FFFCF7}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-img{aspect-ratio:4/5;background:linear-gradient(135deg,#A8B398 0%,#5F6B5F 100%);border-radius:4px;position:relative;overflow:hidden;font-size:8rem;display:flex;align-items:center;justify-content:center;color:rgba(255,252,247,.4)}
+.about p{color:#5F6B5F;font-size:1.05rem;margin-bottom:18px}
+
+.menu{background:#1A3024;color:#FFFCF7;padding:120px 0}
+.menu h2{color:#FFFCF7}
+.menu .section-head .subtitle{color:rgba(255,252,247,.7)}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto}
+@media(max-width:800px){.menu-grid{grid-template-columns:1fr}}
+.menu-col h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;border-bottom:1px solid #D4B57E;padding-bottom:14px;margin-bottom:24px;color:#D4B57E}
+.menu-item{padding:18px 0;border-bottom:1px solid rgba(255,252,247,.1)}
+.menu-item:last-child{border-bottom:none}
+.menu-item-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;margin-bottom:6px}
+.menu-item-name{font-size:1.15rem;font-weight:500;font-family:'Cormorant Garamond',serif}
+.menu-item-price{color:#D4B57E;font-weight:600;font-family:'Cormorant Garamond',serif;font-size:1.15rem}
+.menu-item-desc{font-size:.9rem;color:rgba(255,252,247,.6);font-style:italic}
+
+.experience{background:#FFFCF7;padding:120px 0;text-align:center}
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:60px}
+@media(max-width:800px){.exp-grid{grid-template-columns:1fr}}
+.exp-card{padding:30px 20px}
+.exp-icon{font-size:3rem;margin-bottom:20px}
+.exp-card h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;margin-bottom:10px}
+.exp-card p{color:#5F6B5F}
+
+.reservation{background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%231A3024"/><circle cx="600" cy="300" r="200" fill="%23D4B57E" opacity=".15"/></svg>');background-size:cover;background-color:#1A3024;color:#FFFCF7;padding:120px 0;text-align:center}
+.reservation h2{color:#FFFCF7;margin-bottom:18px}
+.reservation p{font-size:1.1rem;opacity:.85;margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
+
+footer{background:#0F1F17;color:rgba(255,252,247,.6);padding:50px 0 30px;font-size:.9rem}
+footer .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+@media(max-width:800px){footer .container{grid-template-columns:1fr 1fr}}
+footer h4{color:#D4B57E;font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:16px;font-weight:600}
+footer a{display:block;margin-bottom:6px}
+footer a:hover{color:#D4B57E}
+
+.wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:99}
+.wa-float svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">Tierra Verde</div>
+    <ul>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#reservas" class="btn btn-outline" style="padding:9px 18px">Reservar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">— Restaurante de autor —</div>
+    <h1 class="serif">Sabores de la tierra, transformados.</h1>
+    <p>Cocina de temporada con producto 100% local. Una experiencia gastronómica donde cada plato cuenta una historia.</p>
+    <div class="hero-ctas">
+      <a href="#reservas" class="btn btn-dark" style="background:#D4B57E;color:#1A3024">Reservar mesa</a>
+      <a href="#carta" class="btn btn-outline">Ver carta</a>
+    </div>
+  </div>
+</header>
+
+<section id="nosotros" class="about">
+  <div class="container about-grid">
+    <div class="about-img">🌿</div>
+    <div>
+      <span class="section-eyebrow">Nuestra historia</span>
+      <h2 class="serif">Donde la tierra se vuelve plato.</h2>
+      <p>Tierra Verde nace en 2019 de la mano del chef Marco Aliprandi, con la visión de redescubrir los ingredientes olvidados de nuestra región y elevarlos con técnicas modernas.</p>
+      <p>Trabajamos con +30 productores locales que nos surten cada mañana. Nuestra carta cambia cada semana siguiendo el ritmo de las estaciones.</p>
+      <p>Cada mesa es una invitación a viajar a través del paladar — sin pretensiones, con honestidad y mucho amor por lo nuestro.</p>
+    </div>
+  </div>
+</section>
+
+<section id="carta" class="menu">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">Nuestra carta</span>
+      <h2 class="serif">Una sinfonía de sabores.</h2>
+      <p class="subtitle">Cambiamos la carta cada semana. Estos son algunos clásicos de la temporada.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-col">
+        <h3>Entrantes</h3>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Carpaccio de remolacha orgánica</span>
+            <span class="menu-item-price">€14</span>
+          </div>
+          <p class="menu-item-desc">Con queso de cabra de Sierra Norte, nueces caramelizadas y reducción balsámica</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Tartar de atún rojo</span>
+            <span class="menu-item-price">€18</span>
+          </div>
+          <p class="menu-item-desc">Con aguacate cremoso, aceite de sésamo y crujiente de wantón</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Crema de calabaza asada</span>
+            <span class="menu-item-price">€12</span>
+          </div>
+          <p class="menu-item-desc">Con jengibre fresco, leche de coco y pipas tostadas</p>
+        </div>
+      </div>
+      <div class="menu-col">
+        <h3>Principales</h3>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Pluma ibérica al carbón</span>
+            <span class="menu-item-price">€26</span>
+          </div>
+          <p class="menu-item-desc">Sobre puré de hinojo asado y reducción de Pedro Ximénez</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Risotto de boletus</span>
+            <span class="menu-item-price">€22</span>
+          </div>
+          <p class="menu-item-desc">Con queso curado de oveja y aceite de trufa negra</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-head">
+            <span class="menu-item-name">Lubina salvaje con hierbas</span>
+            <span class="menu-item-price">€28</span>
+          </div>
+          <p class="menu-item-desc">A la sal con tomillo, romero y limón confitado</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:60px">
+      <a href="#" style="color:#D4B57E;text-decoration:underline;font-style:italic">Ver carta completa →</a>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia" class="experience">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">La experiencia</span>
+      <h2 class="serif">Más que comida.</h2>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-icon">🍷</div>
+        <h3>Bodega curada</h3>
+        <p>Más de 80 referencias de vinos naturales y biodinámicos seleccionados por nuestro sommelier.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">👨‍🍳</div>
+        <h3>Menú degustación</h3>
+        <p>7 pasos diseñados por el chef. €65 por persona, con maridaje opcional.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🌸</div>
+        <h3>Eventos privados</h3>
+        <p>Cumpleaños, aniversarios o cenas corporativas. Privatizamos el restaurante a partir de 14 comensales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reservas" class="reservation">
+  <div class="container">
+    <span class="section-eyebrow">Te esperamos</span>
+    <h2 class="serif">Reserva tu mesa.</h2>
+    <p>Recomendamos reservar con anticipación. Abrimos de martes a domingo, comidas y cenas.</p>
+    <a href="https://wa.me/34600234567" class="btn btn-dark" style="background:#D4B57E;color:#1A3024">Reservar por WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <h4>Tierra Verde</h4>
+      <p style="font-size:.85rem">Cocina de autor con producto local. Desde 2019.</p>
+    </div>
+    <div>
+      <h4>Visítanos</h4>
+      <a>C/ del Olivar, 18</a>
+      <a>28013 Madrid, España</a>
+    </div>
+    <div>
+      <h4>Horarios</h4>
+      <a>Mar-Vie: 13–16h · 20–23h</a>
+      <a>Sab-Dom: 13–16:30h · 20–23:30h</a>
+      <a>Lunes cerrado</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a>reservas@tierraverde.es</a>
+      <a>+34 600 234 567</a>
+      <a>Instagram: @tierraverde.mad</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34600234567" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+</a>
+
+</body>
+</html>
