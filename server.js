@@ -47,10 +47,14 @@ async function authMiddleware(req, res, next) {
   if (!token) return res.status(401).json({ error: 'No autorizado' });
   try {
     const payload = jwt.verify(token, JWT_SECRET);
-    const user = await one('SELECT id,email,name FROM users WHERE id=$1', [payload.uid]);
+    const user = await one('SELECT id,email,name,owner_id FROM users WHERE id=$1', [payload.uid]);
     if (!user) return res.status(401).json({ error: 'Usuario no existe' });
-    let ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [payload.ws, user.id]);
-    if (!ws) ws = await firstWorkspace(user.id);
+    // Cuenta = dueño. Los miembros del equipo comparten las marcas/datos del dueño.
+    const accountId = user.owner_id || user.id;
+    req.accountId = accountId;
+    req.isOwner = !user.owner_id;
+    let ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [payload.ws, accountId]);
+    if (!ws) ws = await firstWorkspace(accountId);
     req.user = user; req.workspace = ws;
     next();
   } catch (e) { return res.status(401).json({ error: 'Token inválido' }); }
@@ -80,7 +84,7 @@ app.post('/api/auth/login', h(async (req, res) => {
   const user = await one('SELECT * FROM users WHERE email=$1', [(email || '').toLowerCase()]);
   if (!user || !user.password_hash || !bcrypt.compareSync(password || '', user.password_hash))
     return res.status(401).json({ error: 'Credenciales incorrectas' });
-  const ws = await firstWorkspace(user.id);
+  const ws = await firstWorkspace(user.owner_id || user.id);
   res.json({ token: signToken(user, ws ? ws.id : null), user: { id: user.id, email: user.email, name: user.name } });
 }));
 
@@ -92,15 +96,15 @@ app.post('/api/auth/dev-login', h(async (req, res) => {
 }));
 
 app.get('/api/auth/account', auth(async (req, res) => {
-  await ensureCountries(req.user.id); // si la cuenta está vacía, crea las 6 marcas
+  await ensureCountries(req.accountId); // si la cuenta está vacía, crea las 6 marcas
   try { if (!(await getSetting('public_url'))) await setSetting('public_url', req.protocol + '://' + req.get('host')); } catch (e) {}
-  const ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [req.workspace ? req.workspace.id : 0, req.user.id]) || await firstWorkspace(req.user.id);
+  const ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [req.workspace ? req.workspace.id : 0, req.accountId]) || await firstWorkspace(req.accountId);
   res.json({ user: req.user, workspace: ws });
 }));
 
 // ---------- Workspaces ----------
 app.get('/api/workspaces', auth(async (req, res) => {
-  const list = await many('SELECT * FROM workspaces WHERE user_id=$1 ORDER BY id', [req.user.id]);
+  const list = await many('SELECT * FROM workspaces WHERE user_id=$1 ORDER BY id', [req.accountId]);
   res.json({ workspaces: list, current: req.workspace.id });
 }));
 
@@ -108,15 +112,50 @@ app.post('/api/workspaces', auth(async (req, res) => {
   const { name, country_code, currency, timezone, flag } = req.body || {};
   if (!name) return res.status(400).json({ error: 'Nombre requerido' });
   const w = await one('INSERT INTO workspaces (user_id,name,country_code,currency,timezone,flag) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id',
-    [req.user.id, name, country_code || 'CO', currency || 'COP', timezone || 'America/Bogota', flag || '🏳️']);
+    [req.accountId, name, country_code || 'CO', currency || 'COP', timezone || 'America/Bogota', flag || '🏳️']);
   res.json({ id: w.id });
 }));
 
 app.post('/api/auth/switch-workspace', auth(async (req, res) => {
   const { workspaceId } = req.body || {};
-  const ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [workspaceId, req.user.id]);
+  const ws = await one('SELECT * FROM workspaces WHERE id=$1 AND user_id=$2', [workspaceId, req.accountId]);
   if (!ws) return res.status(404).json({ error: 'Marca no encontrada' });
   res.json({ token: signToken(req.user, ws.id), workspace: ws });
+}));
+
+// ---------- Equipo (varios usuarios, misma cuenta, todos ven todo) ----------
+app.get('/api/team', auth(async (req, res) => {
+  const acc = req.accountId;
+  const members = await many(
+    "SELECT id,email,name,created_at FROM users WHERE id=$1 OR owner_id=$1 ORDER BY (id=$1) DESC, id ASC", [acc]);
+  res.json({
+    members: members.map(m => ({ id: m.id, email: m.email, name: m.name, created_at: m.created_at,
+      role: m.id === acc ? 'Dueño' : 'Miembro', isMe: m.id === req.user.id })),
+    isOwner: req.isOwner,
+  });
+}));
+
+app.post('/api/team/invite', auth(async (req, res) => {
+  if (!req.isOwner) return res.status(403).json({ error: 'Solo el dueño de la cuenta puede agregar miembros.' });
+  const { name, email, password } = req.body || {};
+  if (!email || !password || password.length < 6) return res.status(400).json({ error: 'Nombre, correo y contraseña (mín. 6) requeridos' });
+  const em = String(email).toLowerCase().trim();
+  const exists = await one('SELECT id FROM users WHERE email=$1', [em]);
+  if (exists) return res.status(409).json({ error: 'Ese correo ya está registrado' });
+  const hash = bcrypt.hashSync(password, 10);
+  const u = await one('INSERT INTO users (email,password_hash,name,owner_id) VALUES ($1,$2,$3,$4) RETURNING id,email,name',
+    [em, hash, name || 'Miembro del equipo', req.accountId]);
+  res.json({ ok: true, member: { id: u.id, email: u.email, name: u.name, role: 'Miembro' } });
+}));
+
+app.post('/api/team/:id/remove', auth(async (req, res) => {
+  if (!req.isOwner) return res.status(403).json({ error: 'Solo el dueño puede quitar miembros.' });
+  const id = parseInt(req.params.id, 10);
+  if (id === req.accountId) return res.status(400).json({ error: 'No puedes quitar al dueño de la cuenta.' });
+  const target = await one('SELECT id FROM users WHERE id=$1 AND owner_id=$2', [id, req.accountId]);
+  if (!target) return res.status(404).json({ error: 'Miembro no encontrado en tu equipo.' });
+  await q('DELETE FROM users WHERE id=$1', [id]);
+  res.json({ ok: true });
 }));
 
 // ---------- Dashboard ----------
@@ -327,17 +366,17 @@ async function computeFinanceForUser(userId, conds) {
 }
 
 app.get('/api/finance/waterfall', auth(async (req, res) => {
-  res.json(await computeFinanceForUser(req.user.id));
+  res.json(await computeFinanceForUser(req.accountId));
 }));
 
 // Vista Global (founder): consolida TODOS los países + desglose por país
 app.get('/api/dashboard/global', auth(async (req, res) => {
   const tz = (await getSetting('meta_tz')) || 'UTC';
   const conds = financeRangeConds(req.query, tz);
-  const fin = await computeFinanceForUser(req.user.id, conds);
+  const fin = await computeFinanceForUser(req.accountId, conds);
   const byWs = {};
   fin.rows.forEach(r => { byWs[r.workspace_id] = r; });
-  const wss = await many('SELECT id,name,flag,country_code,currency FROM workspaces WHERE user_id=$1 ORDER BY id', [req.user.id]);
+  const wss = await many('SELECT id,name,flag,country_code,currency FROM workspaces WHERE user_id=$1 ORDER BY id', [req.accountId]);
   const perCountry = [];
   let totalSales = 0;
   for (const w of wss) {
@@ -378,7 +417,7 @@ app.get('/api/dashboard/global', auth(async (req, res) => {
 }));
 
 app.get('/api/ads/spend', auth(async (req, res) => {
-  const fin = await computeFinanceForUser(req.user.id);
+  const fin = await computeFinanceForUser(req.accountId);
   const byCountry = fin.rows.filter(r => r.spend > 0 || r.revenue > 0);
   const campaigns = [];
   for (const r of byCountry) {
@@ -388,7 +427,7 @@ app.get('/api/ads/spend', auth(async (req, res) => {
   // Campañas cuyo nombre no tenía país reconocido: se guardan como 'XX' para no perder el gasto
   const noCountry = await many("SELECT campaign, product, spend_usd FROM ad_spend WHERE country_code='XX'");
   noCountry.forEach(c => campaigns.push({ name: c.campaign, product: c.product || '—', pais: '🌐 Sin país', spend: c.spend_usd, roas: null, estado: 'Sin data' }));
-  const byProduct = await productAdsBreakdown(req.user.id);
+  const byProduct = await productAdsBreakdown(req.accountId);
   const connected = ((await one("SELECT value FROM settings WHERE key='meta_connected'")) || {}).value === '1';
   const acct = ((await one("SELECT value FROM settings WHERE key='meta_account'")) || {}).value || '';
   const lastSync = (await getSetting('meta_last_sync')) || null;
@@ -401,7 +440,7 @@ app.post('/api/ads/connect', auth(async (req, res) => {
   const { account, token } = req.body || {};
   await setSetting('meta_connected', '1');
   await setSetting('meta_account', account || '');
-  await setSetting('meta_user', String(req.user.id));
+  await setSetting('meta_user', String(req.accountId));
   if (token) await setSetting('meta_token', token);
   res.json({ connected: true });
 }));
@@ -558,8 +597,8 @@ async function runMetaSyncInner(userId, preset) {
 }
 
 app.post('/api/ads/sync', auth(async (req, res) => {
-  await setSetting('meta_user', String(req.user.id));
-  const out = await runMetaSync(req.user.id, (req.body && req.body.range) || 'last_30d');
+  await setSetting('meta_user', String(req.accountId));
+  const out = await runMetaSync(req.accountId, (req.body && req.body.range) || 'last_30d');
   if (out.error === 'no_creds') return res.status(400).json({ error: 'Falta el ID de cuenta (act_...) o el token. Conéctalos primero.' });
   if (out.error === 'busy') return res.status(409).json({ error: 'Ya hay una sincronización en curso. Espera unos segundos y vuelve a intentar.' });
   if (out.error) return res.status(400).json({ error: out.error });
@@ -1378,7 +1417,7 @@ async function computeAlerts(userId) {
 }
 
 app.get('/api/alerts', auth(async (req, res) => {
-  const alerts = await computeAlerts(req.user.id);
+  const alerts = await computeAlerts(req.accountId);
   const tgChat = (await getSetting('tg_chat')) || '';
   res.json({ alerts, telegramConfigured: !!(await getSetting('tg_token')) && !!tgChat, tgChat });
 }));
@@ -1394,7 +1433,7 @@ app.post('/api/user/telegram', auth(async (req, res) => {
 app.post('/api/alerts/send-telegram', auth(async (req, res) => {
   const token = await getSetting('tg_token'); const chat = await getSetting('tg_chat');
   if (!token || !chat) return res.status(400).json({ error: 'Configura Telegram primero (bot token + chat id).' });
-  const alerts = await computeAlerts(req.user.id);
+  const alerts = await computeAlerts(req.accountId);
   const text = '🔔 *Alertas PDFmania*\n\n' + (alerts.length ? alerts.map(a => a.icon + ' *' + a.title + '*\n' + a.detail).join('\n\n') : 'Todo en orden ✅');
   try {
     const r = await fetch('https://api.telegram.org/bot' + token + '/sendMessage', {

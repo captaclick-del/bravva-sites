@@ -148,6 +148,7 @@ async function init() {
     );
     ALTER TABLE messages ADD COLUMN IF NOT EXISTS media_url TEXT;
     ALTER TABLE sales ADD COLUMN IF NOT EXISTS conversation_id INTEGER;
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS owner_id INTEGER;
   `);
 }
 

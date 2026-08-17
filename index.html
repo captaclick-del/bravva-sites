@@ -266,6 +266,7 @@ function setView(v){
   if(v==='whatsapp') return renderWhatsapp();
   if(v==='chat') return renderChat();
   if(v==='pipeline') return renderPipeline();
+  if(v==='equipo') return renderEquipo();
   if(v==='ia') return renderIA();
   if(v==='pagos') return renderPagos();
   if(v==='media') return renderMedia();
@@ -1073,6 +1074,52 @@ async function renderPipeline(){
     <div class="flex gap-3 overflow-x-auto pb-2">${cols}</div>
     <div class="text-xs text-neutral-500">💡 El valor de cada lead que aún no compra se estima con el precio de tu producto. Los que ya pagaron muestran la venta real. Clic en un cliente para abrir su chat.</div>
   </div>`;
+}
+
+/* ---------- Equipo (multi-usuario, misma cuenta) ---------- */
+async function renderEquipo(){
+  $('#content').innerHTML='<div class="text-neutral-500 text-sm">Cargando…</div>';
+  const d=await api('/api/team');
+  const rows=d.members.map(m=>`
+    <div class="flex items-center justify-between py-3 border-b border-[#1f1f1f] last:border-0">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-xs">${(m.name||m.email).slice(0,2).toUpperCase()}</div>
+        <div>
+          <div class="text-sm font-semibold">${escapeHtml(m.name||'')} ${m.isMe?'<span class="text-[10px] text-neutral-500">(tú)</span>':''}</div>
+          <div class="text-xs text-neutral-500">${escapeHtml(m.email||'')}</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs px-2 py-0.5 rounded-full ${m.role==='Dueño'?'bg-white text-black':'bg-white/10 text-neutral-300'}">${m.role}</span>
+        ${(d.isOwner&&m.role!=='Dueño')?`<button class="rmMember text-xs text-red-400 hover:underline" data-id="${m.id}">Quitar</button>`:''}
+      </div>
+    </div>`).join('');
+  $('#content').innerHTML=`<div class="fade space-y-5 max-w-2xl">
+    <div class="card p-5">
+      <div class="font-bold mb-1">👥 Miembros del equipo</div>
+      <div class="text-xs text-neutral-400 mb-3">Cada persona entra con su propio correo y contraseña. <b>Todos ven y editan todo</b> (mismas marcas, chats, flujos, pagos).</div>
+      <div>${rows||'<div class="text-neutral-500 text-sm">Sin miembros</div>'}</div>
+    </div>
+    ${d.isOwner?`
+    <div class="card p-5">
+      <div class="font-bold mb-3">➕ Agregar miembro</div>
+      <div class="grid gap-3">
+        <input id="mName" placeholder="Nombre" class="bg-black border border-[#262626] rounded-lg px-3 py-2 text-sm outline-none focus:border-white"/>
+        <input id="mEmail" type="email" placeholder="Correo" class="bg-black border border-[#262626] rounded-lg px-3 py-2 text-sm outline-none focus:border-white"/>
+        <input id="mPass" type="text" placeholder="Contraseña temporal (mín. 6)" class="bg-black border border-[#262626] rounded-lg px-3 py-2 text-sm outline-none focus:border-white"/>
+        <button id="mAdd" class="py-2 rounded-lg bg-white text-black text-sm font-semibold">Crear acceso</button>
+        <div class="text-[11px] text-neutral-500">Tú creas el correo y una contraseña temporal, y se la pasas a la persona. Ella entra desde <b>cualquier dispositivo</b> con esos datos.</div>
+      </div>
+    </div>`:'<div class="text-xs text-neutral-500">Solo el dueño de la cuenta puede agregar o quitar miembros.</div>'}
+  </div>`;
+  document.querySelectorAll('.rmMember').forEach(b=>b.onclick=async()=>{ if(!confirm('¿Quitar a este miembro? Perderá el acceso.'))return; try{ await api('/api/team/'+b.dataset.id+'/remove',{method:'POST'}); renderEquipo(); }catch(e){ alert(e.message);} });
+  const add=$('#mAdd'); if(add) add.onclick=async()=>{
+    const name=$('#mName').value.trim(), email=$('#mEmail').value.trim(), password=$('#mPass').value;
+    if(!email||password.length<6){ alert('Correo y contraseña de mínimo 6 caracteres.'); return; }
+    add.disabled=true; add.textContent='Creando…';
+    try{ await api('/api/team/invite',{method:'POST',body:JSON.stringify({name,email,password})}); renderEquipo(); }
+    catch(e){ alert(e.message); add.disabled=false; add.textContent='Crear acceso'; }
+  };
 }
 
 function soon(v){
