@@ -1,0 +1,25 @@
+{
+  "name": "helios-network",
+  "version": "0.1.0",
+  "description": "Helios - plataforma centralizada de ventas, chat y automatizacion (reconstruccion)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db.js --seed",
+    "build:css": "tailwindcss -c tailwind.config.js -i tw-input.css -o public/vendor/tailwind.css --minify"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "chart.js": "^4.4.1",
+    "playwright-core": "^1.62.1",
+    "tailwindcss": "^3.4.13"
+  }
+}

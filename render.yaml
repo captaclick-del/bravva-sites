@@ -1,0 +1,17 @@
+# Config para desplegar PDFmania en Render (alternativa a Railway).
+# Recuerda: los datos van en Supabase (DATABASE_URL), no en el disco.
+services:
+  - type: web
+    name: pdfmania
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # "starter" = siempre encendida. Usa "free" solo para probar.
+    envVars:
+      - key: DATABASE_URL
+        sync: false        # pega aquí tu cadena de Supabase
+      - key: JWT_SECRET
+        generateValue: true
+      - key: WEBHOOK_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
