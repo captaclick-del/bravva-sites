@@ -138,6 +138,7 @@ async function init() {
       created_at TIMESTAMPTZ DEFAULT now()
     );
     ALTER TABLE products ADD COLUMN IF NOT EXISTS delivery_url TEXT;
+    ALTER TABLE products ADD COLUMN IF NOT EXISTS description TEXT;
     ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS beneficiary_name TEXT;
     ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS beneficiary_account TEXT;
     ALTER TABLE ad_spend ADD COLUMN IF NOT EXISTS product TEXT;
@@ -149,7 +150,194 @@ async function init() {
     ALTER TABLE messages ADD COLUMN IF NOT EXISTS media_url TEXT;
     ALTER TABLE sales ADD COLUMN IF NOT EXISTS conversation_id INTEGER;
     ALTER TABLE users ADD COLUMN IF NOT EXISTS owner_id INTEGER;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS wa_phone_number_id TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS wa_token TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS wa_waba_id TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS wa_connected BOOLEAN DEFAULT false;
+    ALTER TABLE flows ADD COLUMN IF NOT EXISTS product_id INTEGER;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS product_id INTEGER;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS agent_name TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS agent_tone TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS agent_instructions TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS agent_lang TEXT;
+    CREATE TABLE IF NOT EXISTS push_subs (
+      id SERIAL PRIMARY KEY,
+      account_id INTEGER NOT NULL,
+      endpoint TEXT UNIQUE NOT NULL,
+      p256dh TEXT,
+      auth TEXT,
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS recovery_sent_at TIMESTAMPTZ;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS recovery_on BOOLEAN DEFAULT true;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS recovery_hours INTEGER DEFAULT 3;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS recovery_msg TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS goal_amount BIGINT DEFAULT 0;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS display_usd BOOLEAN DEFAULT false;
+    ALTER TABLE media ADD COLUMN IF NOT EXISTS token TEXT;
+    -- Seguimiento (follow-up dentro de la ventana de 24h): secuencia de cierre POR PRODUCTO
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS followup_on BOOLEAN DEFAULT false;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS followup_seq JSONB DEFAULT '[]';
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS last_in_at TIMESTAMPTZ;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS followup_idx INTEGER DEFAULT 0;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS followup_at TIMESTAMPTZ;
+    -- Optimización por venta (Conversions API para Click-to-WhatsApp)
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS ctwa_clid TEXT;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS ad_ref TEXT;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS capi_sent BOOLEAN DEFAULT false;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS capi_lead_sent BOOLEAN DEFAULT false;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS capi_dataset_id TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS capi_token TEXT;
+    ALTER TABLE workspaces ADD COLUMN IF NOT EXISTS capi_on BOOLEAN DEFAULT false;
+    CREATE TABLE IF NOT EXISTS followups (
+      id SERIAL PRIMARY KEY,
+      workspace_id INTEGER NOT NULL,
+      product_id INTEGER,
+      active BOOLEAN DEFAULT false,
+      steps JSONB DEFAULT '[]',
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    -- Fábrica de Testeo: ideas de producto (investigación) + pipeline
+    CREATE TABLE IF NOT EXISTS lab_ideas (
+      id SERIAL PRIMARY KEY,
+      account_id INTEGER NOT NULL,
+      workspace_id INTEGER,
+      country_code TEXT,
+      name TEXT NOT NULL,
+      niche TEXT,
+      angle TEXT,
+      price_hint TEXT,
+      rationale TEXT,
+      status TEXT DEFAULT 'idea',
+      score INTEGER DEFAULT 0,
+      source TEXT DEFAULT 'ia',
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    -- Fábrica de Testeo: creativos generados (copy + imagen)
+    -- Asignación EXPLÍCITA por campaña: el usuario elige producto y país de cada campaña (sin adivinar)
+    CREATE TABLE IF NOT EXISTS campaign_map (
+      id SERIAL PRIMARY KEY,
+      account_id INTEGER NOT NULL,
+      campaign TEXT NOT NULL,
+      product_name TEXT,
+      country_code TEXT,
+      created_at TIMESTAMPTZ DEFAULT now(),
+      UNIQUE (account_id, campaign)
+    );
+    -- Reglas determinísticas: keyword en nombre de campaña -> producto (para ROAS por producto confiable)
+    CREATE TABLE IF NOT EXISTS product_rules (
+      id SERIAL PRIMARY KEY,
+      account_id INTEGER NOT NULL,
+      keyword TEXT NOT NULL,
+      product_name TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS lab_creatives (
+      id SERIAL PRIMARY KEY,
+      account_id INTEGER NOT NULL,
+      idea_id INTEGER,
+      workspace_id INTEGER,
+      country_code TEXT,
+      product TEXT,
+      angle TEXT,
+      headline TEXT,
+      primary_text TEXT,
+      visual_prompt TEXT,
+      media_id INTEGER,
+      image_url TEXT,
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    -- ============================================================
+    --  MOTOR DE VENTA (config-driven): Oferta + Órdenes + Eventos
+    --  Una sola fuente de verdad por marca (país). El agente y el
+    --  cobro LEEN de aquí; nunca de código ni de "memoria".
+    -- ============================================================
+    CREATE TABLE IF NOT EXISTS offer_config (
+      id SERIAL PRIMARY KEY,
+      workspace_id INTEGER NOT NULL UNIQUE,
+      active BOOLEAN DEFAULT false,
+      main_product_id INTEGER,        -- Pack principal
+      bump_product_id INTEGER,        -- Order bump (ANTES de pagar)
+      upsell_product_id INTEGER,      -- Upsell (DESPUÉS de pagar)
+      downsell_product_id INTEGER,    -- Downsell (objeción de precio)
+      gifts JSONB DEFAULT '[]',       -- [{name, ref_value, delivery_url}]
+      sample JSONB DEFAULT '{}',      -- {enabled, name, delivery_url}
+      messages JSONB DEFAULT '{}',    -- copy editable de cada paso
+      remarketing JSONB DEFAULT '{}', -- ramas A..F con pasos y delays
+      urgency_on BOOLEAN DEFAULT false,
+      urgency_text TEXT,
+      updated_at TIMESTAMPTZ DEFAULT now(),
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS orders (
+      id SERIAL PRIMARY KEY,
+      workspace_id INTEGER NOT NULL,
+      conversation_id INTEGER,
+      skus JSONB DEFAULT '[]',        -- [{sku, name, usd}] lo que realmente lleva
+      usd_total REAL DEFAULT 0,       -- total contractual en USD
+      ves_total BIGINT DEFAULT 0,     -- monto a pagar en moneda local
+      rate_value REAL,                -- tasa usada (snapshot)
+      rate_timestamp TIMESTAMPTZ,     -- momento exacto de la tasa
+      payment_status TEXT DEFAULT 'pending', -- pending/review/paid/rejected
+      proof_amount BIGINT,            -- monto REAL leído del comprobante
+      bump_status TEXT DEFAULT 'none',    -- none/offered/accepted/declined/skipped
+      upsell_status TEXT DEFAULT 'none',  -- none/offered/accepted/declined
+      paid_at TIMESTAMPTZ,
+      delivered_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    CREATE TABLE IF NOT EXISTS funnel_events (
+      id SERIAL PRIMARY KEY,
+      workspace_id INTEGER,
+      conversation_id INTEGER,
+      order_id INTEGER,
+      event TEXT NOT NULL,
+      meta JSONB DEFAULT '{}',
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
+    -- Estado del embudo por conversación (máquina de estados determinística)
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS funnel_state TEXT DEFAULT 'NEW_LEAD';
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS order_id INTEGER;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS abandon_branch TEXT;   -- rama de remarketing (A..F)
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS funnel_step_at TIMESTAMPTZ;
+    -- Monto real pagado + vínculo a la orden en la venta registrada
+    ALTER TABLE sales ADD COLUMN IF NOT EXISTS proof_amount BIGINT;
+    ALTER TABLE sales ADD COLUMN IF NOT EXISTS order_id INTEGER;
+    ALTER TABLE receipts ADD COLUMN IF NOT EXISTS order_id INTEGER;
+    -- Etiquetas por conversación (como GHL): la IA/motor las pone y quitan; alimentan segmentos y decisiones.
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS tags JSONB DEFAULT '[]';
+    -- Nombres de etiquetas personalizables por producto/flujo (el usuario los edita)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS tags_map JSONB DEFAULT '{}';
+    -- Constructor de flujo: disparador (trigger) + variantes + rama "no contestó" (seguimiento)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS trigger_type TEXT DEFAULT 'any';   -- any | keyword | ad
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS trigger_value TEXT;                 -- palabras clave (si keyword)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS followup_steps JSONB DEFAULT '[]';  -- rama "no contestó": [{after_min,text}]
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS pay_followup_steps JSONB DEFAULT '[]'; -- rama "abandonó el pago": [{after_min,text}]
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS pace_seconds REAL DEFAULT 3;         -- segundos entre mensajes del guion
+    -- Flujos Power: VARIOS flujos por país (lista). Quitamos el límite de uno-por-país.
+    ALTER TABLE offer_config DROP CONSTRAINT IF EXISTS offer_config_workspace_id_key;
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS name TEXT;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS offer_id INTEGER;   -- a qué flujo Power pertenece esta conversación
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS product_tag TEXT;     -- etiqueta de producto (se pone en TODAS las conversaciones de este flujo)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS payment_info TEXT;     -- datos de pago SOLO para este flujo (reemplaza los de la marca; ideal SPEI/transferencia)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS price_currency TEXT DEFAULT 'usd';   -- 'usd' (convierte con la tasa) | 'local' (pones el precio directo en la moneda del país)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS payment_method_ids JSONB DEFAULT '[]'; -- métodos de pago activos SOLO en este flujo (vacío = todos)
+    -- Reloj de seguimiento del motor (independiente del followup por producto)
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS motor_fu_idx INTEGER DEFAULT 0;
+    ALTER TABLE conversations ADD COLUMN IF NOT EXISTS motor_fu_at TIMESTAMPTZ;
+    -- Precios en USD por slot (fuente de verdad; el monto local se calcula con la tasa)
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS main_usd REAL DEFAULT 0;
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS bump_usd REAL DEFAULT 0;
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS upsell_usd REAL DEFAULT 0;
+    ALTER TABLE offer_config ADD COLUMN IF NOT EXISTS downsell_usd REAL DEFAULT 0;
   `);
+  // Garantiza que TODOS los países tengan su tasa/comisiones (aunque la base ya exista).
+  // Actualiza comisiones siempre; la tasa (fx) solo se pone al CREAR la fila (para no pisar
+  // la tasa que actualiza Binance a diario ni una que hayas puesto a mano).
+  for (const r of COMM) {
+    await q(`INSERT INTO countries (code,cobrador,procesador,andres,proc_name,fx) VALUES ($1,$2,$3,$4,$5,$6)
+             ON CONFLICT (code) DO UPDATE SET cobrador=EXCLUDED.cobrador, procesador=EXCLUDED.procesador, andres=EXCLUDED.andres, proc_name=EXCLUDED.proc_name`, r);
+  }
 }
 
 function daysAgo(days, hour = 12) {
@@ -185,7 +373,10 @@ const COMM = [
   ['CR', 10, 5.9, 15, 'Stripe', 520], ['DO', 0, 1.5, 15, 'DollarApp', 60],
   ['GT', 10, 5.9, 15, 'Stripe', 7.7], ['VE', 12, 1, 15, 'USDT', 40],
   ['MX', 10, 4.5, 15, 'Mercado Pago', 18], ['PE', 10, 4.5, 15, 'Pasarela', 3.75],
-  ['EC', 10, 5.9, 15, 'Stripe', 1],
+  ['EC', 10, 5.9, 15, 'Stripe', 1], ['BR', 10, 5.9, 15, 'Stripe', 5.4],
+  ['CL', 10, 5.9, 15, 'Stripe', 950], ['PA', 10, 5.9, 15, 'Stripe', 1],
+  ['BO', 10, 5.9, 15, 'Stripe', 6.96], ['PY', 10, 5.9, 15, 'Stripe', 7300],
+  ['UY', 10, 5.9, 15, 'Stripe', 40], ['US', 10, 5.9, 15, 'Stripe', 1],
 ];
 // [país, campaña, producto, gasto_usd]  (la campaña se etiqueta a un producto)
 const ADS = [
